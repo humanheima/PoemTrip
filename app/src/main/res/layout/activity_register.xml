@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.brotherd.poemtrip.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:title="@string/register_activity_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_input">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:text="@string/phone_prefix"
+            android:textColor="@android:color/black"/>
+
+        <View
+            style="@style/Vertical_Line"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="6dp"/>
+
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:hint="@string/input_phone"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_input">
+
+        <EditText
+            android:id="@+id/edit_verify_code"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:background="@null"
+            android:hint="@string/input_verify_code"
+            android:inputType="number"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/text_get_verify"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@color/text_gray"
+            android:gravity="center"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:text="@string/get_verify_code"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:text="@string/send_verify_tip"/>
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_input"
+        android:hint="@string/input_password"
+        android:maxLength="16"
+        android:inputType="numberPassword"
+        android:maxLines="1"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/text_gray"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/text_commit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ll_account_pwd_login"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_text_login"
+        android:gravity="center"
+        android:text="@string/commit"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+
+        <CheckBox
+            android:id="@+id/check_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agree_protocol"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/text_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="@string/register_protocol"
+            android:textColor="@color/green"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

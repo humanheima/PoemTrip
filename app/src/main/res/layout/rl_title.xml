@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="1px"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        app:srcCompat="@drawable/ic_back"/>
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="1px"
+        android:layout_toLeftOf="@+id/text_register"
+        android:layout_toRightOf="@+id/img_back"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="18sp"
+        tools:text="标题"/>
+
+    <TextView
+        android:id="@+id/text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="1px"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingRight="12dp"
+        android:textSize="18sp"
+        tools:text="操作"/>
+
+    <View
+        style="@style/Horizontal_Line"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

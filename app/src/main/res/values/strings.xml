@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">诗和远方</string>
+    <string name="loading">请稍后...</string>
+    <!--LoginActivity-->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="account_pwd_login">账号密码登录</string>
+    <string name="fast_login">快速免密登录</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="input_pwd">请输入6-16位数字或字母</string>
+    <string name="input_verify_code">请输入验证码</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="phone_prefix">+86</string>
+    <string name="phone_cant_null">手机号不能为空</string>
+    <string name="phone_pattern_error">请输入正确的手机格式</string>
+    <string name="pwd_cant_null">密码不能为空</string>
+    <string name="verify_code_cant_null">验证码不能为空</string>
+    <string name="login_success">登录成功</string>
+
+    <!--RegisterActivity-->
+    <string name="register_activity_title">手机注册</string>
+    <string name="send_verify_tip">为了安全,我们会向你的手机发送验证码</string>
+    <string name="commit">提交</string>
+    <string name="agree_protocol">本人已阅读并同意</string>
+    <string name="register_protocol">注册协议</string>
+    <string name="input_password">请输入您的密码</string>
+    <string name="password_cant_null">密码不能为空</string>
+    <string name="register_success">注册成功</string>
+
+    <!--SetPasswordNickNameActivity-->
+    <string name="set_password_nickname_activity_title">设置密码和昵称</string>
+</resources>

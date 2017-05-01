@@ -5,7 +5,7 @@ package com.brotherd.poemtrip.model;
  */
 public class LoginModel {
 
-    private long userId;
+    private long userId = -1;
 
     public long getUserId() {
         return userId;

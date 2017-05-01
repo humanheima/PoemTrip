@@ -1,5 +1,7 @@
 package com.brotherd.poemtrip.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.brotherd.poemtrip.MainActivity;
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
 import com.brotherd.poemtrip.impl.TextWatcherImpl;
@@ -19,6 +20,7 @@ import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
 import com.brotherd.poemtrip.util.RegularUtil;
+import com.brotherd.poemtrip.util.SpUtil;
 import com.brotherd.poemtrip.util.TimeCountDownUtil;
 import com.brotherd.poemtrip.util.Toast;
 import com.brotherd.poemtrip.widget.LoadingDialog;
@@ -85,6 +87,11 @@ public class LoginActivity extends BaseActivity {
     private TimeCountDownUtil countDownUtil;
     //是否正在获取验证码的倒计时过程中
     private boolean countDown;
+
+    public static void launch(Context context) {
+        Intent starter = new Intent(context, LoginActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     protected int bindLayout() {
@@ -185,6 +192,14 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+        textLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
+        //设置不可点击
+        textLogin.setClickable(false);
     }
 
     @OnClick(R.id.text_register)
@@ -254,7 +269,7 @@ public class LoginActivity extends BaseActivity {
         countDownUtil.setCountDownListener(new TimeCountDownUtil.CountDownListener() {
             @Override
             public void onCountDownStart() {
-                countDown=true;
+                countDown = true;
                 textGetVerify.setBackgroundResource(R.color.text_gray);
                 textGetVerify.setClickable(false);
             }
@@ -269,7 +284,7 @@ public class LoginActivity extends BaseActivity {
                     textGetVerify.setBackgroundResource(R.color.green);
                     textGetVerify.setClickable(true);
                 }
-                countDown=false;
+                countDown = false;
             }
         });
         countDownUtil.start();
@@ -297,23 +312,14 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.text_login)
     public void login() {
         if (accountLogin) {
             phone = editPhone.getText().toString();
-            if (TextUtils.isEmpty(phone)) {
-                Toast.showToast(this, getString(R.string.phone_cant_null));
-                return;
-            }
             if (!RegularUtil.checkPhone(phone)) {
                 Toast.showToast(this, getString(R.string.phone_pattern_error));
                 return;
             }
             password = editPwd.getText().toString();
-            if (TextUtils.isEmpty(password)) {
-                Toast.showToast(this, getString(R.string.pwd_cant_null));
-                return;
-            }
             loadingDialog.show();
             //请求网络
             NetWork.getApi().login(phone, password)
@@ -329,6 +335,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void accept(@NonNull LoginModel loginModel) throws Exception {
                             loadingDialog.dismiss();
+                            SpUtil.getInstance().putLoginModel(loginModel);
                             Toast.showToast(LoginActivity.this, getString(R.string.login_success));
                             Debug.e(TAG, "userId:" + loginModel.getUserId());
                             MainActivity.launch(LoginActivity.this);
@@ -344,19 +351,11 @@ public class LoginActivity extends BaseActivity {
                     });
         } else {
             phone = editFastPhone.getText().toString();
-            if (TextUtils.isEmpty(phone)) {
-                Toast.showToast(this, getString(R.string.phone_cant_null));
-                return;
-            }
             if (!RegularUtil.checkPhone(phone)) {
                 Toast.showToast(this, getString(R.string.phone_pattern_error));
                 return;
             }
             verifyCode = editVerifyCode.getText().toString();
-            if (TextUtils.isEmpty(verifyCode)) {
-                Toast.showToast(this, getString(R.string.verify_code_cant_null));
-                return;
-            }
             loadingDialog.show();
             //请求网络
             NetWork.getApi().fastLogin(phone, verifyCode)
@@ -372,6 +371,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void accept(@NonNull LoginModel loginModel) throws Exception {
                             loadingDialog.dismiss();
+                            SpUtil.getInstance().putLoginModel(loginModel);
                             Toast.showToast(LoginActivity.this, getString(R.string.login_success));
                             Debug.e(TAG, "userId:" + loginModel.getUserId());
                             MainActivity.launch(LoginActivity.this);

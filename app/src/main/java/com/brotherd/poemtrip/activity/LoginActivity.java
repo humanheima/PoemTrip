@@ -1,5 +1,6 @@
 package com.brotherd.poemtrip.activity;
 
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.brotherd.poemtrip.MainActivity;
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
+import com.brotherd.poemtrip.impl.TextWatcherImpl;
 import com.brotherd.poemtrip.model.LoginModel;
 import com.brotherd.poemtrip.model.VerifyCodeModel;
 import com.brotherd.poemtrip.network.HttpResult;
@@ -67,13 +69,22 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llFastLogin;
     @BindView(R.id.text_login)
     TextView textLogin;
+    @BindView(R.id.img_clear_phone)
+    ImageView imgClearPhone;
+    @BindView(R.id.img_clear_password)
+    ImageView imgClearPassword;
+    @BindView(R.id.img_clear_fast_phone)
+    ImageView imgClearFastPhone;
+    @BindView(R.id.img_clear_verify_code)
+    ImageView imgClearVerifyCode;
     //是否是账号密码登录
     private boolean accountLogin = true;
     private String phone;
     private String password;
     private String verifyCode;
     private TimeCountDownUtil countDownUtil;
-    private int i;
+    //是否正在获取验证码的倒计时过程中
+    private boolean countDown;
 
     @Override
     protected int bindLayout() {
@@ -85,8 +96,99 @@ public class LoginActivity extends BaseActivity {
         loadingDialog = new LoadingDialog(this);
     }
 
+    @Override
+    protected void bindEvent() {
+        editPhone.addTextChangedListener(new TextWatcherImpl() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    imgClearPhone.setVisibility(View.INVISIBLE);
+                    textLogin.setBackgroundResource(R.color.alpha_green);
+                    textLogin.setClickable(false);
+                } else {
+                    imgClearPhone.setVisibility(View.VISIBLE);
+                    if (TextUtils.isEmpty(editPwd.getText().toString())) {
+                        textLogin.setBackgroundResource(R.color.alpha_green);
+                        textLogin.setClickable(false);
+                    } else {
+                        textLogin.setBackgroundResource(R.color.green);
+                        textLogin.setClickable(true);
+                    }
+                }
+            }
+        });
+        editPwd.addTextChangedListener(new TextWatcherImpl() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    imgClearPassword.setVisibility(View.INVISIBLE);
+                    textLogin.setBackgroundResource(R.color.alpha_green);
+                    textLogin.setClickable(false);
+                } else {
+                    imgClearPassword.setVisibility(View.VISIBLE);
+                    if (TextUtils.isEmpty(editPhone.getText().toString())) {
+                        textLogin.setBackgroundResource(R.color.alpha_green);
+                        textLogin.setClickable(false);
+                    } else {
+                        textLogin.setBackgroundResource(R.color.green);
+                        textLogin.setClickable(true);
+                    }
+
+                }
+            }
+        });
+        //快速登录的手机号输入框
+        editFastPhone.addTextChangedListener(new TextWatcherImpl() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    imgClearFastPhone.setVisibility(View.INVISIBLE);
+                    textGetVerify.setBackgroundResource(R.color.text_gray);
+                    if (!countDown) {
+                        textGetVerify.setClickable(false);
+                        textLogin.setBackgroundResource(R.color.alpha_green);
+                    }
+                    textLogin.setClickable(false);
+                } else {
+                    imgClearFastPhone.setVisibility(View.VISIBLE);
+                    if (!countDown) {
+                        textGetVerify.setBackgroundResource(R.color.green);
+                        textGetVerify.setClickable(true);
+                    }
+                    if (TextUtils.isEmpty(editVerifyCode.getText().toString())) {
+                        textLogin.setBackgroundResource(R.color.alpha_green);
+                        textLogin.setClickable(false);
+                    } else {
+                        textLogin.setBackgroundResource(R.color.green);
+                        textLogin.setClickable(true);
+                    }
+                }
+            }
+        });
+        editVerifyCode.addTextChangedListener(new TextWatcherImpl() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    imgClearVerifyCode.setVisibility(View.INVISIBLE);
+                    textLogin.setBackgroundResource(R.color.alpha_green);
+                    textLogin.setClickable(false);
+                } else {
+                    imgClearVerifyCode.setVisibility(View.VISIBLE);
+                    if (TextUtils.isEmpty(editFastPhone.getText().toString())) {
+                        textLogin.setBackgroundResource(R.color.alpha_green);
+                        textLogin.setClickable(false);
+                    } else {
+                        textLogin.setBackgroundResource(R.color.green);
+                        textLogin.setClickable(true);
+                    }
+
+                }
+            }
+        });
+    }
+
     @OnClick(R.id.text_register)
-    public void onTextRegisterClicked() {
+    public void register() {
         RegisterActivity.launch(this);
     }
 
@@ -112,14 +214,24 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void changeLoginType(boolean accountLogin) {
+        textLogin.setBackgroundResource(R.color.alpha_green);
+        textLogin.setClickable(false);
         phone = null;
         if (accountLogin) {
+            editFastPhone.setText("");
+            editVerifyCode.setText("");
+            textAccountPwdLogin.setTextColor(getResources().getColor(R.color.green));
             textAccountPwdLogin.setBackgroundResource(R.drawable.bg_text_layerlist);
+            textFastLogin.setTextColor(getResources().getColor(R.color.text_gray));
             textFastLogin.setBackgroundResource(R.drawable.bg_text);
             llAccountPwdLogin.setVisibility(View.VISIBLE);
             llFastLogin.setVisibility(View.INVISIBLE);
         } else {
+            editPhone.setText("");
+            editPwd.setText("");
+            textAccountPwdLogin.setTextColor(getResources().getColor(R.color.text_gray));
             textAccountPwdLogin.setBackgroundResource(R.drawable.bg_text);
+            textFastLogin.setTextColor(getResources().getColor(R.color.green));
             textFastLogin.setBackgroundResource(R.drawable.bg_text_layerlist);
             llAccountPwdLogin.setVisibility(View.INVISIBLE);
             llFastLogin.setVisibility(View.VISIBLE);
@@ -138,7 +250,28 @@ public class LoginActivity extends BaseActivity {
             Toast.showToast(this, getString(R.string.phone_pattern_error));
             return;
         }
-        countDownUtil = new TimeCountDownUtil(30 * 1000, 1000, textGetVerify);
+        countDownUtil = new TimeCountDownUtil(textGetVerify);
+        countDownUtil.setCountDownListener(new TimeCountDownUtil.CountDownListener() {
+            @Override
+            public void onCountDownStart() {
+                countDown=true;
+                textGetVerify.setBackgroundResource(R.color.text_gray);
+                textGetVerify.setClickable(false);
+            }
+
+            @Override
+            public void onCountDownEnd() {
+                textGetVerify.setText(getString(R.string.get_verify_code));
+                if (TextUtils.isEmpty(editFastPhone.getText().toString())) {
+                    textGetVerify.setBackgroundResource(R.color.text_gray);
+                    textGetVerify.setClickable(false);
+                } else {
+                    textGetVerify.setBackgroundResource(R.color.green);
+                    textGetVerify.setClickable(true);
+                }
+                countDown=false;
+            }
+        });
         countDownUtil.start();
         NetWork.getApi().getLoginVerifyCode(phone)
                 .subscribeOn(Schedulers.io())
@@ -165,7 +298,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.text_login)
-    public void onTextLoginClicked() {
+    public void login() {
         if (accountLogin) {
             phone = editPhone.getText().toString();
             if (TextUtils.isEmpty(phone)) {
@@ -252,6 +385,30 @@ public class LoginActivity extends BaseActivity {
                             Debug.e(TAG, throwable.getMessage());
                         }
                     });
+        }
+    }
+
+    @OnClick({R.id.img_clear_phone, R.id.img_clear_password, R.id.img_clear_fast_phone, R.id.img_clear_verify_code})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_clear_phone:
+                editPhone.setText("");
+                imgClearPhone.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.img_clear_password:
+                editPwd.setText("");
+                imgClearPassword.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.img_clear_fast_phone:
+                editFastPhone.setText("");
+                imgClearFastPhone.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.img_clear_verify_code:
+                editVerifyCode.setText("");
+                imgClearVerifyCode.setVisibility(View.INVISIBLE);
+                break;
+            default:
+                break;
         }
     }
 }

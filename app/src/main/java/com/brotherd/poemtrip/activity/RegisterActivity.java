@@ -77,7 +77,26 @@ public class RegisterActivity extends BaseActivity {
             Toast.showToast(this, getString(R.string.phone_pattern_error));
             return;
         }
-        countDownUtil = new TimeCountDownUtil(30 * 1000, 1000, textGetVerify);
+        countDownUtil = new TimeCountDownUtil(textGetVerify);
+        countDownUtil.setCountDownListener(new TimeCountDownUtil.CountDownListener() {
+            @Override
+            public void onCountDownStart() {
+                textGetVerify.setBackgroundResource(R.color.text_gray);
+                textGetVerify.setClickable(false);
+            }
+
+            @Override
+            public void onCountDownEnd() {
+                textGetVerify.setText(getString(R.string.get_verify_code));
+                if (TextUtils.isEmpty(editPhone.getText().toString())) {
+                    textGetVerify.setBackgroundResource(R.color.text_gray);
+                    textGetVerify.setClickable(false);
+                } else {
+                    textGetVerify.setBackgroundResource(R.color.green);
+                    textGetVerify.setClickable(true);
+                }
+            }
+        });
         countDownUtil.start();
         NetWork.getApi().getRegisterVerifyCode(phone)
                 .subscribeOn(Schedulers.io())

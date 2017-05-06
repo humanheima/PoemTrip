@@ -12,6 +12,15 @@
         android:layout_height="48dp"
         app:title="@string/register_activity_title"/>
 
+    <ImageView
+        android:id="@+id/img_top_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_split_title"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/ic_login_logo"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

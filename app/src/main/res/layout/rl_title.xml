@@ -18,6 +18,7 @@
 
     <TextView
         android:id="@+id/text_title"
+        android:textColor="@color/green"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
@@ -38,6 +39,7 @@
         android:layout_marginBottom="1px"
         android:ellipsize="end"
         android:gravity="center"
+        android:textColor="@color/green"
         android:maxLines="1"
         android:paddingRight="12dp"
         android:textSize="18sp"

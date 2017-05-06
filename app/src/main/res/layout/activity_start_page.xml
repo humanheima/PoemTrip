@@ -5,11 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brotherd.poemtrip.activity.SetPasswordNickNameActivity">
+    android:background="@android:color/white"
+    tools:context="com.brotherd.poemtrip.activity.StartPageActivity">
 
-    <com.brotherd.poemtrip.widget.TitleLayout
-        android:layout_width="wrap_content"
-        app:title="@string/set_password_nickname_activity_title"
-        android:layout_height="48dp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/ic_login_logo"/>
 
 </RelativeLayout>

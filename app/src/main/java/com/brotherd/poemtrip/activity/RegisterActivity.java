@@ -232,7 +232,7 @@ public class RegisterActivity extends BaseActivity {
                         loadingDialog.dismiss();
                         userId = loginModel.getUserId();
                         Toast.showToast(RegisterActivity.this, getString(R.string.register_success));
-                        SetPasswordNickNameActivity.launch(RegisterActivity.this);
+                        StartPageActivity.launch(RegisterActivity.this);
                         Debug.e(TAG, "userId=" + userId);
                     }
                 }, new Consumer<Throwable>() {

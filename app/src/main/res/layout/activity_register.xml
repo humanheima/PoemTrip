@@ -12,7 +12,7 @@
         android:layout_height="48dp"
         app:title="@string/register_activity_title"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="24dp"
@@ -21,24 +21,29 @@
         android:background="@drawable/bg_input">
 
         <TextView
+            android:id="@+id/text_phone_prefix"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
             android:text="@string/phone_prefix"
             android:textColor="@android:color/black"/>
 
         <View
+            android:id="@+id/view_split_phone"
             style="@style/Vertical_Line"
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/text_phone_prefix"/>
 
         <EditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@+id/img_clear_phone"
+            android:layout_toRightOf="@+id/view_split_phone"
             android:background="@null"
             android:hint="@string/input_phone"
             android:inputType="number"
@@ -49,10 +54,21 @@
             android:textColorHint="@color/text_gray"
             android:textSize="14sp"/>
 
+        <ImageView
+            android:id="@+id/img_clear_phone"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_cancel"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="24dp"
@@ -62,9 +78,10 @@
 
         <EditText
             android:id="@+id/edit_verify_code"
-            android:layout_width="0px"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/img_clear_verify_code"
             android:layout_weight="2"
             android:background="@null"
             android:hint="@string/input_verify_code"
@@ -76,22 +93,34 @@
             android:textColorHint="@color/text_gray"
             android:textSize="14sp"/>
 
+        <ImageView
+            android:id="@+id/img_clear_verify_code"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@+id/text_get_verify"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_cancel"/>
+
         <TextView
             android:id="@+id/text_get_verify"
-            android:layout_width="0px"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@color/text_gray"
+            android:clickable="false"
             android:gravity="center"
             android:maxLength="16"
             android:maxLines="1"
-            android:paddingLeft="8dp"
             android:text="@string/get_verify_code"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -100,25 +129,43 @@
         android:layout_marginRight="24dp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
-        android:textSize="12sp"
-        android:text="@string/send_verify_tip"/>
+        android:text="@string/send_verify_tip"
+        android:textSize="12sp"/>
 
-    <EditText
-        android:id="@+id/edit_password"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_input"
-        android:hint="@string/input_password"
-        android:maxLength="16"
-        android:inputType="numberPassword"
-        android:maxLines="1"
-        android:paddingLeft="8dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/text_gray"
-        android:textSize="14sp"/>
+        android:background="@drawable/bg_input">
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/img_clear_password"
+            android:background="@null"
+            android:hint="@string/input_password"
+            android:inputType="numberPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/img_clear_password"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_cancel"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/text_commit"
@@ -128,7 +175,8 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_text_login"
+        android:background="@color/alpha_green"
+        android:clickable="false"
         android:gravity="center"
         android:text="@string/commit"
         android:textColor="@android:color/white"
@@ -142,9 +190,9 @@
 
         <CheckBox
             android:id="@+id/check_protocol"
-            android:checked="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:checked="true"/>
 
         <TextView
             android:layout_width="wrap_content"

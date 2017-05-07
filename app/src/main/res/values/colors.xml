@@ -7,5 +7,6 @@
     <color name="alpha_green">#883bcc64</color>
     <color name="gray">#ededed</color>
     <color name="text_gray">#999999</color>
+    <color name="black">#000000</color>
     <color name="bg_default">#fafafa</color>
 </resources>

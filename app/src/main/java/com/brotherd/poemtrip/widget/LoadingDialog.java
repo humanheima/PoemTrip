@@ -13,12 +13,12 @@ import com.brotherd.poemtrip.R;
  */
 public class LoadingDialog extends AlertDialog {
 
-    private LoadingDialog(Context context, @StyleRes int themeResId) {
-        super(context, themeResId);
-    }
-
     public LoadingDialog(Context context) {
         this(context, R.style.LoadingDialog);
+    }
+
+    private LoadingDialog(Context context, @StyleRes int themeResId) {
+        super(context, themeResId);
     }
 
     @Override

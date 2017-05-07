@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.brotherd.poemtrip.widget.SquareImageView
         android:id="@+id/img_cover"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:visibility="gone"/>
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/text_title"
@@ -23,5 +23,16 @@
         android:textColor="@color/text_gray"
         android:textSize="14sp"
         tools:text="李白的诗"/>
+
+    <TextView
+        android:id="@+id/text_poet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        tools:text="李白"/>
 
 </LinearLayout>

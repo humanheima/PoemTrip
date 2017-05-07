@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.model.PoemModel;
+import com.brotherd.poemtrip.util.ImageUtil;
+import com.brotherd.poemtrip.widget.SquareImageView;
 
 import java.util.List;
 
@@ -32,25 +33,29 @@ public class GridViewAdapter extends ArrayAdapter<PoemModel> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         PoemModel poemModel = poemModelList.get(position);
-        View view = null;
+        View view;
         ViewHolder holder;
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(resource, parent, false);
             holder = new ViewHolder();
-            holder.imgCover = (ImageView) view.findViewById(R.id.img_cover);
+            holder.imgCover = (SquareImageView) view.findViewById(R.id.img_cover);
             holder.textTitle = (TextView) view.findViewById(R.id.text_title);
+            holder.textPoet = (TextView) view.findViewById(R.id.text_poet);
             view.setTag(holder);
         } else {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
-        //ImageUtil.loadImage(context, poemModelList.get(position), holder.imgCover);
-        holder.textTitle.setText(poemModel.getTitle());
+        String imageUrl = poemModel.getImageUrl();
+        ImageUtil.loadImage(context, imageUrl, holder.imgCover);
+        holder.textTitle.setText(poemModel.getTitle().replaceAll("。","--"));
+        holder.textPoet.setText(poemModel.getPoet());
         return view;
     }
 
     class ViewHolder {
-        ImageView imgCover;
+        SquareImageView imgCover;
         TextView textTitle;
+        TextView textPoet;
     }
 }

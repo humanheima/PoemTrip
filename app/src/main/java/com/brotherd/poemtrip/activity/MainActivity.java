@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity {
     private SparseIntArray sparseArrayNormal;
     private SparseIntArray sparseArrayPressed;
     private SparseArray<BaseFragment> fragmentSparseArray = new SparseArray<>();
-    ;
     private int preFrag = -1;
     private int nowFrag = NAVIGATION;
 

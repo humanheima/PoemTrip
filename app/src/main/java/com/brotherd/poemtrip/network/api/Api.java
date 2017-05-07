@@ -1,9 +1,11 @@
 package com.brotherd.poemtrip.network.api;
 
 import com.brotherd.poemtrip.model.LoginModel;
+import com.brotherd.poemtrip.model.PoemModel;
 import com.brotherd.poemtrip.model.VerifyCodeModel;
 import com.brotherd.poemtrip.network.HttpResult;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -39,4 +41,10 @@ public interface Api {
 
     @POST("/login")
     Observable<HttpResult<Object>> getData(@Body Map map);
+
+    @GET("/getPoem")
+    Observable<HttpResult<PoemModel>> getPoem(@Query("poemId") long poemId);
+
+    @GET("/getHotPoem")
+    Observable<HttpResult<List<PoemModel>>> getHotPoem();
 }

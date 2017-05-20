@@ -51,9 +51,9 @@ public class RetrofitUtil {
             }
         });
 
-        OkHttpClient client = okHttpBuild.readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+        OkHttpClient client = okHttpBuild.readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .build();
 
         RETROFIT = new Retrofit.Builder()

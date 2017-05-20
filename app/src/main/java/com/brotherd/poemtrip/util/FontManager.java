@@ -1,6 +1,6 @@
 package com.brotherd.poemtrip.util;
 
-import android.app.Application;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,15 @@ public class FontManager {
 
     private static Typeface typeface;
 
-    public static void init(Application app) {
-        typeface = Typeface.createFromAsset(app.getAssets(), "poemTrip.ttf");
+    public static void init(Context context) {
+        typeface = Typeface.createFromAsset(context.getAssets(), "fzqk.ttf");
+    }
+
+    public static Typeface getTypeface(Context context) {
+        if (typeface == null) {
+            typeface = Typeface.createFromAsset(context.getAssets(), "fzqk.ttf");
+        }
+        return typeface;
     }
 
     public static void changeFonts(TextView textView) {

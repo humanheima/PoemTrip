@@ -11,7 +11,7 @@ public class Toast {
 
     public static void showToast(Context context, String content) {
         if (toast == null) {
-            toast = android.widget.Toast.makeText(context,
+            toast = android.widget.Toast.makeText(context.getApplicationContext(),
                     content,
                     android.widget.Toast.LENGTH_SHORT);
         } else {

@@ -7,7 +7,8 @@ import android.widget.LinearLayout;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.activity.PoemActivity;
-import com.brotherd.poemtrip.adapter.CommonGridViewAdapter;
+import com.brotherd.poemtrip.activity.PoetAlbumActivity;
+import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
 import com.brotherd.poemtrip.adapter.GridViewAdapter;
 import com.brotherd.poemtrip.base.BaseFragment;
 import com.brotherd.poemtrip.model.PoemModel;
@@ -60,7 +61,7 @@ public class HotPoemFragment extends BaseFragment {
     private GridViewAdapter adapter;
     //诗人
     private List<PoetModel> poetList;
-    private CommonGridViewAdapter<PoetModel> poetAdapter;
+    private BaseGridViewAdapter<PoetModel> poetAdapter;
 
     public HotPoemFragment() {
     }
@@ -84,7 +85,7 @@ public class HotPoemFragment extends BaseFragment {
         bannerImages = new ArrayList<>();
         bannerTitles = new ArrayList<>();
         poemModelList = new ArrayList<>();
-        poetList=new ArrayList<>();
+        poetList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             bannerImages.add(Images.imageUrls[i]);
             bannerTitles.add("");
@@ -207,7 +208,7 @@ public class HotPoemFragment extends BaseFragment {
 
     private void updateGridPoet() {
         if (poetAdapter == null) {
-            poetAdapter = new CommonGridViewAdapter<PoetModel>(getContext(), R.layout.item_poet_grid_view, poetList) {
+            poetAdapter = new BaseGridViewAdapter<PoetModel>(getContext(), R.layout.item_poet_grid_view, poetList) {
                 @Override
                 public void bindView(CommonViewHolder holder, PoetModel data) {
                     holder.setImageViewUrl(R.id.img_cover, data.getImageUrl());
@@ -215,6 +216,13 @@ public class HotPoemFragment extends BaseFragment {
                 }
             };
             gridViewPoet.setAdapter(poetAdapter);
+            gridViewPoet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    PoetModel model = poetList.get(position);
+                    PoetAlbumActivity.launch(getContext(), model.getPoetId());
+                }
+            });
         } else {
             poetAdapter.notifyDataSetChanged();
         }

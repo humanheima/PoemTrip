@@ -18,13 +18,13 @@ import java.util.List;
  * Created by dumingwei on 2017/4/20.
  * 通用的
  */
-public abstract class CommonGridViewAdapter<T> extends ArrayAdapter<T> {
+public abstract class BaseGridViewAdapter<T> extends ArrayAdapter<T> {
 
     private List<T> dataList;
     private Context context;
     private int resource;
 
-    public CommonGridViewAdapter(Context context, int resource, List<T> dataList) {
+    public BaseGridViewAdapter(Context context, int resource, List<T> dataList) {
         super(context, resource, dataList);
         this.dataList = dataList;
         this.context = context;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.brotherd.poemtrip.widget.MixtureTextView
+        android:id="@+id/text_poet"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp">
+
+        <ImageView
+            android:id="@+id/img_poet"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_default_poem"/>
+
+    </com.brotherd.poemtrip.widget.MixtureTextView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -15,7 +15,7 @@ import com.brotherd.poemtrip.base.BaseActivity;
 import com.brotherd.poemtrip.base.BaseFragment;
 import com.brotherd.poemtrip.fragment.HomeFragment;
 import com.brotherd.poemtrip.fragment.MineFragment;
-import com.brotherd.poemtrip.util.SpUtil;
+import com.brotherd.poemtrip.util.CheckLoginUtil;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
         public void onClick(View v) {
             if (position != nowFrag) {
                 if (position == MINE) {
-                    if (SpUtil.getInstance().getLoginModel() != null && SpUtil.getInstance().getLoginModel().getUserId() != -1) {
+                    if (CheckLoginUtil.haveLogin()) {
                         preFrag = nowFrag;
                         nowFrag = position;
                         changeFragment();

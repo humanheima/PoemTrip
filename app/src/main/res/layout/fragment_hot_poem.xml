@@ -14,7 +14,7 @@
         <com.brotherd.poemtrip.widget.banner.banner.SimpleBanner
             android:id="@+id/simpleBanner"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="100dp"
             app:banner_point_gravity="bottom|center_horizontal"
             app:is_auto_play="true"/>
 
@@ -75,6 +75,86 @@
 
             <LinearLayout
                 android:id="@+id/ll_change_hot_poem"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/change_hot_poem"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    app:srcCompat="@drawable/ic_refresh"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="@string/hot_recommend"
+                android:textColor="@color/green"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_poet_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:text="@string/hot_more"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/ic_more"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <com.brotherd.poemtrip.widget.NoScrollGridView
+            android:id="@+id/grid_view_poet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:horizontalSpacing="8dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <LinearLayout
+                android:id="@+id/ll_change_hot_poet"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true">

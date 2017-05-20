@@ -20,6 +20,7 @@ import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
 import com.brotherd.poemtrip.util.RegularUtil;
+import com.brotherd.poemtrip.util.SpUtil;
 import com.brotherd.poemtrip.util.TimeCountDownUtil;
 import com.brotherd.poemtrip.util.Toast;
 import com.brotherd.poemtrip.widget.LoadingDialog;
@@ -198,7 +199,8 @@ public class RegisterActivity extends BaseActivity {
                     @Override
                     public void accept(@NonNull VerifyCodeModel verifyCodeModel) throws Exception {
                         verifyCode = verifyCodeModel.getVerifyCode();
-                        Debug.e(TAG, "verifyCode=" + verifyCodeModel);
+                        editVerifyCode.setText(verifyCode);
+                        Debug.e(TAG, "verifyCode=" + verifyCode);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -232,8 +234,9 @@ public class RegisterActivity extends BaseActivity {
                         loadingDialog.dismiss();
                         userId = loginModel.getUserId();
                         Toast.showToast(RegisterActivity.this, getString(R.string.register_success));
-                        StartPageActivity.launch(RegisterActivity.this);
                         Debug.e(TAG, "userId=" + userId);
+                        SpUtil.getInstance().putLoginModel(loginModel);
+                        MainActivity.launch(RegisterActivity.this);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

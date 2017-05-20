@@ -2,6 +2,7 @@ package com.brotherd.poemtrip.network.api;
 
 import com.brotherd.poemtrip.model.LoginModel;
 import com.brotherd.poemtrip.model.PoemModel;
+import com.brotherd.poemtrip.model.PoetModel;
 import com.brotherd.poemtrip.model.VerifyCodeModel;
 import com.brotherd.poemtrip.network.HttpResult;
 
@@ -47,4 +48,7 @@ public interface Api {
 
     @GET("/getHotPoem")
     Observable<HttpResult<List<PoemModel>>> getHotPoem();
+
+    @GET("/getHotPoet")
+    Observable<HttpResult<List<PoetModel>>> getHotPoet();
 }

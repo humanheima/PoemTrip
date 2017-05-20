@@ -17,7 +17,6 @@ public class SpUtil {
     private static SharedPreferences.Editor editor;
 
     private static final String LOGIN_MODEL = "loginModel";
-    private static final String USER_INFO = "userInfo";
 
     private SpUtil() {
         hmSpref = App.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);

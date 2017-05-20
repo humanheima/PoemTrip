@@ -14,7 +14,7 @@ public class ImageUtil {
     public static void loadImage(Context context, String url, ImageView imageView) {
         Glide.with(context)
                 .load(url)
-                .error(R.drawable.ic_default_poet)
+                .error(R.drawable.ic_default_poem)
                 .dontAnimate()
                 .into(imageView);
 

@@ -14,7 +14,7 @@ public class ScreenUtil {
     private ScreenUtil() {
     }
 
-    private static class Data {
+    public static class Data {
         private int px;
         private float dp;
 

@@ -9,4 +9,5 @@
     <color name="text_gray">#999999</color>
     <color name="black">#000000</color>
     <color name="bg_default">#fafafa</color>
+    <color name="bg_search_bar">#e6e7e8</color>
 </resources>

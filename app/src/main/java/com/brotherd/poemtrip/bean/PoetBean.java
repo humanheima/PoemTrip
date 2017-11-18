@@ -1,9 +1,9 @@
-package com.brotherd.poemtrip.model;
+package com.brotherd.poemtrip.bean;
 
 /**
  * Created by dumingwei on 2017/5/20.
  */
-public class PoetModel {
+public class PoetBean {
 
 
     /**

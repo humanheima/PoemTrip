@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
-import com.brotherd.poemtrip.model.PoemModel;
+import com.brotherd.poemtrip.bean.PoemBean;
 import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
@@ -71,16 +71,16 @@ public class PoemActivity extends BaseActivity {
         NetWork.getApi().getPoem(poemId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<PoemModel>, ObservableSource<PoemModel>>() {
+                .flatMap(new Function<HttpResult<PoemBean>, ObservableSource<PoemBean>>() {
                     @Override
-                    public ObservableSource<PoemModel> apply(@NonNull HttpResult<PoemModel> result) throws Exception {
+                    public ObservableSource<PoemBean> apply(@NonNull HttpResult<PoemBean> result) throws Exception {
                         return NetWork.flatResponse(result);
                     }
                 })
-                .subscribe(new Consumer<PoemModel>() {
+                .subscribe(new Consumer<PoemBean>() {
                     @Override
-                    public void accept(@NonNull PoemModel poemModel) throws Exception {
-                        updateUI(poemModel);
+                    public void accept(@NonNull PoemBean poemBean) throws Exception {
+                        updateUI(poemBean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -91,14 +91,14 @@ public class PoemActivity extends BaseActivity {
                 });
     }
 
-    private void updateUI(PoemModel poemModel) {
-        textPoemTitle.setText(poemModel.getTitle().replaceAll("。", "--"));
-        String poet = poemModel.getPoet();
-        String dynasty = poemModel.getAge();
+    private void updateUI(PoemBean poemBean) {
+        textPoemTitle.setText(poemBean.getTitle().replaceAll("。", "--"));
+        String poet = poemBean.getPoet();
+        String dynasty = poemBean.getAge();
         textAuthorDynasty.setText(String.format("%s（%s）", poet, dynasty));
-        String content = poemModel.getContent();
+        String content = poemBean.getContent();
         textPoemContent.setText(content.replaceAll("<br />", "").replaceAll("。", "\n").replaceAll("<[\\w/]+>", ""));
-        String translation = poemModel.getTranslation();
+        String translation = poemBean.getTranslation();
         if (TextUtils.isEmpty(translation)) {
             textAnnoationTip.setVisibility(View.GONE);
             textAnnotation.setVisibility(View.GONE);
@@ -107,7 +107,7 @@ public class PoemActivity extends BaseActivity {
             textAnnotation.setVisibility(View.VISIBLE);
             textAnnotation.setText(RegularUtil.getPlainString(translation));
         }
-        textDescription.setText(RegularUtil.getPlainString(poemModel.getDescription()));
+        textDescription.setText(RegularUtil.getPlainString(poemBean.getDescription()));
     }
 
 }

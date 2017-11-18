@@ -27,8 +27,10 @@ public class LoadingDialog extends AlertDialog {
         setContentView(R.layout.dialog_loading);
     }
 
-    @Override
-    public void show() {
-        super.show();
+    public static LoadingDialog show(Context context) {
+        LoadingDialog loadingDialog = new LoadingDialog(context);
+        loadingDialog.show();
+        return loadingDialog;
     }
+
 }

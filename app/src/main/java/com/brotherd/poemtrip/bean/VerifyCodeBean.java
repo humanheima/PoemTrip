@@ -1,9 +1,9 @@
-package com.brotherd.poemtrip.model;
+package com.brotherd.poemtrip.bean;
 
 /**
  * Created by dumingwei on 2017/4/30.
  */
-public class VerifyCodeModel {
+public class VerifyCodeBean {
 
     private String verifyCode;
 

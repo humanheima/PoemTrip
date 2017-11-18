@@ -12,7 +12,7 @@ import com.brotherd.poemtrip.adapter.BaseRecyclerViewAdapter;
 import com.brotherd.poemtrip.adapter.BaseRecyclerViewHolder;
 import com.brotherd.poemtrip.base.BaseActivity;
 import com.brotherd.poemtrip.inter.OnItemClickListener;
-import com.brotherd.poemtrip.model.PoetAlbum;
+import com.brotherd.poemtrip.bean.PoetAlbum;
 import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;

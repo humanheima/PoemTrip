@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.brotherd.poemtrip.App;
-import com.brotherd.poemtrip.model.LoginModel;
+import com.brotherd.poemtrip.bean.LoginBean;
 
 /**
  * Created by dumingwei on 2017/2/5.
@@ -34,13 +34,13 @@ public class SpUtil {
         return spUtil;
     }
 
-    public void putLoginModel(LoginModel model) {
+    public void putLoginModel(LoginBean model) {
         editor.putString(LOGIN_MODEL, GsonUtil.toString(model));
         editor.commit();
     }
 
-    public LoginModel getLoginModel() {
-        return GsonUtil.toObject(hmSpref.getString(LOGIN_MODEL, null), LoginModel.class);
+    public LoginBean getLoginModel() {
+        return GsonUtil.toObject(hmSpref.getString(LOGIN_MODEL, null), LoginBean.class);
     }
 
     public void clear() {

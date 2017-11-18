@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
 import com.brotherd.poemtrip.impl.TextWatcherImpl;
-import com.brotherd.poemtrip.model.LoginModel;
-import com.brotherd.poemtrip.model.VerifyCodeModel;
+import com.brotherd.poemtrip.bean.LoginBean;
+import com.brotherd.poemtrip.bean.VerifyCodeBean;
 import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
@@ -189,16 +189,16 @@ public class RegisterActivity extends BaseActivity {
         NetWork.getApi().getRegisterVerifyCode(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<VerifyCodeModel>, ObservableSource<VerifyCodeModel>>() {
+                .flatMap(new Function<HttpResult<VerifyCodeBean>, ObservableSource<VerifyCodeBean>>() {
                     @Override
-                    public ObservableSource<VerifyCodeModel> apply(@NonNull HttpResult<VerifyCodeModel> result) throws Exception {
+                    public ObservableSource<VerifyCodeBean> apply(@NonNull HttpResult<VerifyCodeBean> result) throws Exception {
                         return NetWork.flatResponse(result);
                     }
                 })
-                .subscribe(new Consumer<VerifyCodeModel>() {
+                .subscribe(new Consumer<VerifyCodeBean>() {
                     @Override
-                    public void accept(@NonNull VerifyCodeModel verifyCodeModel) throws Exception {
-                        verifyCode = verifyCodeModel.getVerifyCode();
+                    public void accept(@NonNull VerifyCodeBean verifyCodeBean) throws Exception {
+                        verifyCode = verifyCodeBean.getVerifyCode();
                         editVerifyCode.setText(verifyCode);
                         Debug.e(TAG, "verifyCode=" + verifyCode);
                     }
@@ -222,20 +222,20 @@ public class RegisterActivity extends BaseActivity {
         NetWork.getApi().register(phone, verifyCode, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<LoginModel>, ObservableSource<LoginModel>>() {
+                .flatMap(new Function<HttpResult<LoginBean>, ObservableSource<LoginBean>>() {
                     @Override
-                    public ObservableSource<LoginModel> apply(@NonNull HttpResult<LoginModel> result) throws Exception {
+                    public ObservableSource<LoginBean> apply(@NonNull HttpResult<LoginBean> result) throws Exception {
                         return NetWork.flatResponse(result);
                     }
                 })
-                .subscribe(new Consumer<LoginModel>() {
+                .subscribe(new Consumer<LoginBean>() {
                     @Override
-                    public void accept(@NonNull LoginModel loginModel) throws Exception {
+                    public void accept(@NonNull LoginBean loginBean) throws Exception {
                         loadingDialog.dismiss();
-                        userId = loginModel.getUserId();
+                        userId = loginBean.getUserId();
                         Toast.showToast(RegisterActivity.this, getString(R.string.register_success));
                         Debug.e(TAG, "userId=" + userId);
-                        SpUtil.getInstance().putLoginModel(loginModel);
+                        SpUtil.getInstance().putLoginModel(loginBean);
                         MainActivity.launch(RegisterActivity.this);
                     }
                 }, new Consumer<Throwable>() {

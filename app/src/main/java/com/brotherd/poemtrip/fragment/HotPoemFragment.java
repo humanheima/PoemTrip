@@ -11,8 +11,8 @@ import com.brotherd.poemtrip.activity.PoetAlbumActivity;
 import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
 import com.brotherd.poemtrip.adapter.GridViewAdapter;
 import com.brotherd.poemtrip.base.BaseFragment;
-import com.brotherd.poemtrip.model.PoemModel;
-import com.brotherd.poemtrip.model.PoetModel;
+import com.brotherd.poemtrip.bean.PoemBean;
+import com.brotherd.poemtrip.bean.PoetBean;
 import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
@@ -57,11 +57,11 @@ public class HotPoemFragment extends BaseFragment {
     private List<String> bannerImages;
     private List<String> bannerTitles;
     //诗
-    private List<PoemModel> poemModelList;
+    private List<PoemBean> poemBeanList;
     private GridViewAdapter adapter;
     //诗人
-    private List<PoetModel> poetList;
-    private BaseGridViewAdapter<PoetModel> poetAdapter;
+    private List<PoetBean> poetList;
+    private BaseGridViewAdapter<PoetBean> poetAdapter;
 
     public HotPoemFragment() {
     }
@@ -84,7 +84,7 @@ public class HotPoemFragment extends BaseFragment {
         loadingDialog = new LoadingDialog(getContext());
         bannerImages = new ArrayList<>();
         bannerTitles = new ArrayList<>();
-        poemModelList = new ArrayList<>();
+        poemBeanList = new ArrayList<>();
         poetList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             bannerImages.add(Images.imageUrls[i]);
@@ -96,7 +96,7 @@ public class HotPoemFragment extends BaseFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PoemModel model = poemModelList.get(position);
+                PoemBean model = poemBeanList.get(position);
                 PoemActivity.launch(getContext(), model.getPoemId());
             }
         });
@@ -130,18 +130,18 @@ public class HotPoemFragment extends BaseFragment {
             NetWork.getApi().getHotPoem()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap(new Function<HttpResult<List<PoemModel>>, ObservableSource<List<PoemModel>>>() {
+                    .flatMap(new Function<HttpResult<List<PoemBean>>, ObservableSource<List<PoemBean>>>() {
                         @Override
-                        public ObservableSource<List<PoemModel>> apply(@NonNull HttpResult<List<PoemModel>> result) throws Exception {
+                        public ObservableSource<List<PoemBean>> apply(@NonNull HttpResult<List<PoemBean>> result) throws Exception {
                             return NetWork.flatResponse(result);
                         }
                     })
-                    .subscribe(new Consumer<List<PoemModel>>() {
+                    .subscribe(new Consumer<List<PoemBean>>() {
                         @Override
-                        public void accept(@NonNull List<PoemModel> poemModels) throws Exception {
+                        public void accept(@NonNull List<PoemBean> poemBeans) throws Exception {
                             loadingDialog.dismiss();
-                            poemModelList.clear();
-                            poemModelList.addAll(poemModels);
+                            poemBeanList.clear();
+                            poemBeanList.addAll(poemBeans);
                             updateGridPoem();
                         }
                     }, new Consumer<Throwable>() {
@@ -163,18 +163,18 @@ public class HotPoemFragment extends BaseFragment {
             NetWork.getApi().getHotPoet()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap(new Function<HttpResult<List<PoetModel>>, ObservableSource<List<PoetModel>>>() {
+                    .flatMap(new Function<HttpResult<List<PoetBean>>, ObservableSource<List<PoetBean>>>() {
                         @Override
-                        public ObservableSource<List<PoetModel>> apply(@NonNull HttpResult<List<PoetModel>> result) throws Exception {
+                        public ObservableSource<List<PoetBean>> apply(@NonNull HttpResult<List<PoetBean>> result) throws Exception {
                             return NetWork.flatResponse(result);
                         }
                     })
-                    .subscribe(new Consumer<List<PoetModel>>() {
+                    .subscribe(new Consumer<List<PoetBean>>() {
                         @Override
-                        public void accept(@NonNull List<PoetModel> poetModels) throws Exception {
+                        public void accept(@NonNull List<PoetBean> poetBeans) throws Exception {
                             loadingDialog.dismiss();
                             poetList.clear();
-                            poetList.addAll(poetModels);
+                            poetList.addAll(poetBeans);
                             updateGridPoet();
                         }
                     }, new Consumer<Throwable>() {
@@ -192,12 +192,12 @@ public class HotPoemFragment extends BaseFragment {
 
     private void updateGridPoem() {
         if (adapter == null) {
-            adapter = new GridViewAdapter(getContext(), R.layout.item_grid_view, poemModelList);
+            adapter = new GridViewAdapter(getContext(), R.layout.item_grid_view, poemBeanList);
             gridView.setAdapter(adapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    PoemModel model = poemModelList.get(position);
+                    PoemBean model = poemBeanList.get(position);
                     PoemActivity.launch(getContext(), model.getPoemId());
                 }
             });
@@ -208,9 +208,9 @@ public class HotPoemFragment extends BaseFragment {
 
     private void updateGridPoet() {
         if (poetAdapter == null) {
-            poetAdapter = new BaseGridViewAdapter<PoetModel>(getContext(), R.layout.item_poet_grid_view, poetList) {
+            poetAdapter = new BaseGridViewAdapter<PoetBean>(getContext(), R.layout.item_poet_grid_view, poetList) {
                 @Override
-                public void bindView(CommonViewHolder holder, PoetModel data) {
+                public void bindView(CommonViewHolder holder, PoetBean data) {
                     holder.setImageViewUrl(R.id.img_cover, data.getImageUrl());
                     holder.setTextViewText(R.id.text_poet, data.getPoetName());
                 }
@@ -219,7 +219,7 @@ public class HotPoemFragment extends BaseFragment {
             gridViewPoet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    PoetModel model = poetList.get(position);
+                    PoetBean model = poetList.get(position);
                     PoetAlbumActivity.launch(getContext(), model.getPoetId());
                 }
             });

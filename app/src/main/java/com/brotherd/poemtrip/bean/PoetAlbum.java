@@ -1,4 +1,4 @@
-package com.brotherd.poemtrip.model;
+package com.brotherd.poemtrip.bean;
 
 import java.util.List;
 

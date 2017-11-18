@@ -44,4 +44,10 @@
     <string name="hot_more">更多</string>
     <string name="change_hot_poem">换一批</string>
 
+    <!--SearchActivity-->
+    <string name="search">搜索</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="history">历史记录</string>
+    <string name="please_input_poem_or_poet">输入诗名或诗人进行搜索</string>
+
 </resources>

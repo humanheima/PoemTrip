@@ -1,10 +1,10 @@
 package com.brotherd.poemtrip.network.api;
 
-import com.brotherd.poemtrip.model.LoginModel;
-import com.brotherd.poemtrip.model.PoemModel;
-import com.brotherd.poemtrip.model.PoetAlbum;
-import com.brotherd.poemtrip.model.PoetModel;
-import com.brotherd.poemtrip.model.VerifyCodeModel;
+import com.brotherd.poemtrip.bean.LoginBean;
+import com.brotherd.poemtrip.bean.PoemBean;
+import com.brotherd.poemtrip.bean.PoetAlbum;
+import com.brotherd.poemtrip.bean.PoetBean;
+import com.brotherd.poemtrip.bean.VerifyCodeBean;
 import com.brotherd.poemtrip.network.HttpResult;
 
 import java.util.List;
@@ -25,33 +25,33 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("/login")
-    Observable<HttpResult<LoginModel>> login(@Field("phone") String phone, @Field("password") String password);
+    Observable<HttpResult<LoginBean>> login(@Field("phone") String phone, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/fastLogin")
-    Observable<HttpResult<LoginModel>> fastLogin(@Field("phone") String phone, @Field("verifyCode") String password);
+    Observable<HttpResult<LoginBean>> fastLogin(@Field("phone") String phone, @Field("verifyCode") String password);
 
     @GET("/getLoginVerifyCode")
-    Observable<HttpResult<VerifyCodeModel>> getLoginVerifyCode(@Query("phone") String phone);
+    Observable<HttpResult<VerifyCodeBean>> getLoginVerifyCode(@Query("phone") String phone);
 
     @GET("/getRegisterVerifyCode")
-    Observable<HttpResult<VerifyCodeModel>> getRegisterVerifyCode(@Query("phone") String phone);
+    Observable<HttpResult<VerifyCodeBean>> getRegisterVerifyCode(@Query("phone") String phone);
 
     @FormUrlEncoded
     @POST("/register")
-    Observable<HttpResult<LoginModel>> register(@Field("phone") String phone, @Field("verifyCode") String verifyCode, @Field("password") String password);
+    Observable<HttpResult<LoginBean>> register(@Field("phone") String phone, @Field("verifyCode") String verifyCode, @Field("password") String password);
 
     @POST("/login")
     Observable<HttpResult<Object>> getData(@Body Map map);
 
     @GET("/getPoem")
-    Observable<HttpResult<PoemModel>> getPoem(@Query("poemId") long poemId);
+    Observable<HttpResult<PoemBean>> getPoem(@Query("poemId") long poemId);
 
     @GET("/getHotPoem")
-    Observable<HttpResult<List<PoemModel>>> getHotPoem();
+    Observable<HttpResult<List<PoemBean>>> getHotPoem();
 
     @GET("/getHotPoet")
-    Observable<HttpResult<List<PoetModel>>> getHotPoet();
+    Observable<HttpResult<List<PoetBean>>> getHotPoet();
 
     /**
      * 获取诗人的专辑

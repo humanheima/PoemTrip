@@ -1,4 +1,4 @@
-package com.brotherd.poemtrip.model;
+package com.brotherd.poemtrip.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by dumingwei on 2017/5/1.
  */
-public class PoemModel implements Parcelable{
+public class PoemBean implements Parcelable{
 
     //诗的id
     private long poemId;
@@ -25,7 +25,7 @@ public class PoemModel implements Parcelable{
     private String translation;
     private String description;
 
-    protected PoemModel(Parcel in) {
+    protected PoemBean(Parcel in) {
         poemId = in.readLong();
         poetId = in.readLong();
         imageUrl = in.readString();
@@ -37,15 +37,15 @@ public class PoemModel implements Parcelable{
         translation = in.readString();
     }
 
-    public static final Creator<PoemModel> CREATOR = new Creator<PoemModel>() {
+    public static final Creator<PoemBean> CREATOR = new Creator<PoemBean>() {
         @Override
-        public PoemModel createFromParcel(Parcel in) {
-            return new PoemModel(in);
+        public PoemBean createFromParcel(Parcel in) {
+            return new PoemBean(in);
         }
 
         @Override
-        public PoemModel[] newArray(int size) {
-            return new PoemModel[size];
+        public PoemBean[] newArray(int size) {
+            return new PoemBean[size];
         }
     };
 

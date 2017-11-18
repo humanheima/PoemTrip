@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
-import com.brotherd.poemtrip.model.PoemModel;
+import com.brotherd.poemtrip.bean.PoemBean;
 import com.brotherd.poemtrip.util.ImageUtil;
 import com.brotherd.poemtrip.widget.SquareImageView;
 
@@ -17,22 +17,22 @@ import java.util.List;
 /**
  * Created by dumingwei on 2017/4/20.
  */
-public class GridViewAdapter extends ArrayAdapter<PoemModel> {
+public class GridViewAdapter extends ArrayAdapter<PoemBean> {
 
-    private List<PoemModel> poemModelList;
+    private List<PoemBean> poemBeanList;
     private Context context;
     private int resource;
 
-    public GridViewAdapter(Context context, int resource, List<PoemModel> poemModelList) {
-        super(context, resource, poemModelList);
-        this.poemModelList = poemModelList;
+    public GridViewAdapter(Context context, int resource, List<PoemBean> poemBeanList) {
+        super(context, resource, poemBeanList);
+        this.poemBeanList = poemBeanList;
         this.context = context;
         this.resource = resource;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PoemModel poemModel = poemModelList.get(position);
+        PoemBean poemBean = poemBeanList.get(position);
         View view;
         ViewHolder holder;
         if (convertView == null) {
@@ -46,10 +46,10 @@ public class GridViewAdapter extends ArrayAdapter<PoemModel> {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
-        String imageUrl = poemModel.getImageUrl();
+        String imageUrl = poemBean.getImageUrl();
         ImageUtil.loadImage(context, imageUrl, holder.imgCover);
-        holder.textTitle.setText(poemModel.getTitle().replaceAll("。","--"));
-        holder.textPoet.setText(poemModel.getPoet());
+        holder.textTitle.setText(poemBean.getTitle().replaceAll("。","--"));
+        holder.textPoet.setText(poemBean.getPoet());
         return view;
     }
 

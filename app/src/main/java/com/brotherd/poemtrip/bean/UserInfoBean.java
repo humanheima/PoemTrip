@@ -1,11 +1,11 @@
-package com.brotherd.poemtrip.model;
+package com.brotherd.poemtrip.bean;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by dumingwei on 2017/2/5.
  */
-public class UserInfoModel {
+public class UserInfoBean {
 
 
     /**

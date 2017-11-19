@@ -6,6 +6,11 @@
         <variable
             name="viewModel"
             type="com.brotherd.poemtrip.viewmodel.SearchViewModel" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +21,7 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="#f9f9f9"
@@ -24,6 +29,7 @@
             android:paddingTop="14dp">
 
             <ImageView
+                android:id="@+id/img_back"
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
@@ -33,11 +39,13 @@
                 app:srcCompat="@drawable/ic_back_back" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_search">
+                android:layout_toLeftOf="@+id/text_search"
+                android:layout_toRightOf="@id/img_back"
+                android:background="@drawable/bg_edit_search"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="16dp"
@@ -48,27 +56,44 @@
                     app:srcCompat="@drawable/ic_search" />
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="1"
                     android:background="@null"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="@string/please_input_search_content"
+                    android:imeOptions="actionSearch"
+                    android:text="@={viewModel.searchContent}"
                     android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:onClick="@{()->viewModel.clear()}"
+                    android:padding="8dp"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.searchContent)?View.INVISIBLE:View.VISIBLE}"
+                    app:srcCompat="@drawable/ic_clean" />
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/text_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.search()}"
                 android:text="@string/search"
                 android:textSize="16sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,12 +103,15 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.rvVisibility}"
+                app:searchData="@{viewModel.searchResult}"
                 tools:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.visibility}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,8 +122,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hot_search"
                         android:layout_marginTop="12dp"
+                        android:text="@string/hot_search"
                         android:textSize="14sp" />
 
                     <com.zhy.view.flowlayout.TagFlowLayout
@@ -112,26 +140,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.historyVisibility}">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/history"
-                        android:textSize="14sp" />
+                        android:layout_marginRight="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/history"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentRight="true"
+                            android:onClick="@{()->viewModel.clearHistory()}"
+                            android:padding="8dp"
+                            app:srcCompat="@drawable/ic_empty" />
+
+                    </RelativeLayout>
+
 
                     <com.zhy.view.flowlayout.TagFlowLayout
                         android:id="@+id/tag_search_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         app:max_select="1"
                         app:tagData="@{viewModel.searchHistoryData}" />
 
                 </LinearLayout>
 
             </LinearLayout>
-
 
         </RelativeLayout>
 

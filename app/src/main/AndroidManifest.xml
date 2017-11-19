@@ -29,7 +29,13 @@
         <activity
             android:name=".activity.StartPageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/StartPageTheme"></activity>
+            android:theme="@style/StartPageTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.PoemActivity"
             android:screenOrientation="portrait"></activity>
@@ -38,12 +44,10 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".activity.SearchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="stateHidden">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

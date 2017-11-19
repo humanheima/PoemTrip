@@ -22,11 +22,15 @@ public abstract class BaseDataBindingActivity<V extends ViewDataBinding> extends
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         initData();
+        bindEvent();
     }
 
     protected abstract int getLayoutId();
 
     protected abstract void initData();
+
+    protected void bindEvent() {
+    }
 
     public void showLoading() {
         if (loadingDialog == null) {

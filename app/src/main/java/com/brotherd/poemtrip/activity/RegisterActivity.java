@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
+import com.brotherd.poemtrip.base.BaseDataBindingActivity;
+import com.brotherd.poemtrip.databinding.ActivityRegisterBinding;
 import com.brotherd.poemtrip.impl.TextWatcherImpl;
 import com.brotherd.poemtrip.bean.LoginBean;
 import com.brotherd.poemtrip.bean.VerifyCodeBean;
@@ -23,6 +25,7 @@ import com.brotherd.poemtrip.util.RegularUtil;
 import com.brotherd.poemtrip.util.SpUtil;
 import com.brotherd.poemtrip.util.TimeCountDownUtil;
 import com.brotherd.poemtrip.util.Toast;
+import com.brotherd.poemtrip.viewmodel.RegisterViewModel;
 import com.brotherd.poemtrip.widget.LoadingDialog;
 
 import butterknife.BindView;
@@ -34,240 +37,25 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseDataBindingActivity<ActivityRegisterBinding> {
 
     private final String TAG = getClass().getSimpleName();
-    @BindView(R.id.edit_phone)
-    EditText editPhone;
-    @BindView(R.id.check_protocol)
-    CheckBox checkProtocol;
-    @BindView(R.id.text_protocol)
-    TextView textProtocol;
-    @BindView(R.id.edit_verify_code)
-    EditText editVerifyCode;
-    @BindView(R.id.text_get_verify)
-    TextView textGetVerify;
-    @BindView(R.id.edit_password)
-    EditText editPassword;
-    @BindView(R.id.text_phone_prefix)
-    TextView textPhonePrefix;
-    @BindView(R.id.view_split_phone)
-    View viewSplitPhone;
-    @BindView(R.id.img_clear_phone)
-    ImageView imgClearPhone;
-    @BindView(R.id.img_clear_verify_code)
-    ImageView imgClearVerifyCode;
-    @BindView(R.id.img_clear_password)
-    ImageView imgClearPassword;
-    @BindView(R.id.text_commit)
-    TextView textCommit;
 
-    private String phone;
-    private String verifyCode;
-    private String password;
-    private long userId;
-
-    private TimeCountDownUtil countDownUtil;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_register;
+    }
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, RegisterActivity.class);
         context.startActivity(starter);
     }
 
-    @Override
-    protected int bindLayout() {
-        return R.layout.activity_register;
-    }
 
     @Override
     protected void initData() {
-        loadingDialog = new LoadingDialog(this);
+        RegisterViewModel viewModel = new RegisterViewModel(this);
+        binding.setViewModel(viewModel);
     }
 
-    @Override
-    protected void bindEvent() {
-        editPhone.addTextChangedListener(new TextWatcherImpl() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    imgClearPhone.setVisibility(View.INVISIBLE);
-                    textGetVerify.setClickable(true);
-                    textGetVerify.setBackgroundColor(getResources().getColor(R.color.text_gray));
-                    textCommit.setClickable(false);
-                    textCommit.setBackgroundColor(getResources().getColor(R.color.alpha_green));
-                } else {
-                    imgClearPhone.setVisibility(View.VISIBLE);
-                    textGetVerify.setClickable(true);
-                    textGetVerify.setBackgroundColor(getResources().getColor(R.color.green));
-                    if (!TextUtils.isEmpty(editVerifyCode.getText()) && !TextUtils.isEmpty(editPassword.getText()) && checkProtocol.isChecked()) {
-                        textCommit.setClickable(true);
-                        textCommit.setBackgroundColor(getResources().getColor(R.color.green));
-                    }
-                }
-            }
-        });
-
-        editVerifyCode.addTextChangedListener(new TextWatcherImpl() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    imgClearVerifyCode.setVisibility(View.INVISIBLE);
-                    textCommit.setClickable(false);
-                    textCommit.setBackgroundColor(getResources().getColor(R.color.alpha_green));
-                } else {
-                    imgClearVerifyCode.setVisibility(View.VISIBLE);
-                    if (!TextUtils.isEmpty(editPhone.getText()) && !TextUtils.isEmpty(editPassword.getText()) && checkProtocol.isChecked()) {
-                        textCommit.setClickable(true);
-                        textCommit.setBackgroundColor(getResources().getColor(R.color.green));
-                    }
-                }
-            }
-        });
-
-        editPassword.addTextChangedListener(new TextWatcherImpl() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    imgClearPassword.setVisibility(View.INVISIBLE);
-                    textCommit.setClickable(false);
-                    textCommit.setBackgroundColor(getResources().getColor(R.color.alpha_green));
-                } else {
-                    imgClearPassword.setVisibility(View.VISIBLE);
-                    if (!TextUtils.isEmpty(editPhone.getText()) && !TextUtils.isEmpty(editVerifyCode.getText()) && checkProtocol.isChecked()) {
-                        textCommit.setClickable(true);
-                        textCommit.setBackgroundColor(getResources().getColor(R.color.green));
-                    }
-                }
-            }
-        });
-
-        checkProtocol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    textCommit.setClickable(false);
-                    textCommit.setBackgroundColor(getResources().getColor(R.color.alpha_green));
-                } else {
-                    if (!TextUtils.isEmpty(editPhone.getText()) && !TextUtils.isEmpty(editVerifyCode.getText()) && !TextUtils.isEmpty(editPassword.getText())) {
-                        textCommit.setClickable(true);
-                        textCommit.setBackgroundColor(getResources().getColor(R.color.green));
-                    }
-                }
-            }
-        });
-
-    }
-
-    @OnClick(R.id.text_get_verify)
-    public void getVerify() {
-        phone = editPhone.getText().toString();
-        if (!RegularUtil.checkPhone(phone)) {
-            Toast.showToast(this, getString(R.string.phone_pattern_error));
-            return;
-        }
-        countDownUtil = new TimeCountDownUtil(textGetVerify);
-        countDownUtil.setCountDownListener(new TimeCountDownUtil.CountDownListener() {
-            @Override
-            public void onCountDownStart() {
-                textGetVerify.setBackgroundResource(R.color.text_gray);
-                textGetVerify.setClickable(false);
-            }
-
-            @Override
-            public void onCountDownEnd() {
-                textGetVerify.setText(getString(R.string.get_verify_code));
-                if (TextUtils.isEmpty(editPhone.getText().toString())) {
-                    textGetVerify.setBackgroundResource(R.color.text_gray);
-                    textGetVerify.setClickable(false);
-                } else {
-                    textGetVerify.setBackgroundResource(R.color.green);
-                    textGetVerify.setClickable(true);
-                }
-            }
-        });
-        countDownUtil.start();
-        NetWork.getApi().getRegisterVerifyCode(phone)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<VerifyCodeBean>, ObservableSource<VerifyCodeBean>>() {
-                    @Override
-                    public ObservableSource<VerifyCodeBean> apply(@NonNull HttpResult<VerifyCodeBean> result) throws Exception {
-                        return NetWork.flatResponse(result);
-                    }
-                })
-                .subscribe(new Consumer<VerifyCodeBean>() {
-                    @Override
-                    public void accept(@NonNull VerifyCodeBean verifyCodeBean) throws Exception {
-                        verifyCode = verifyCodeBean.getVerifyCode();
-                        editVerifyCode.setText(verifyCode);
-                        Debug.e(TAG, "verifyCode=" + verifyCode);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        Debug.e(TAG, throwable.getMessage());
-                        Toast.showToast(RegisterActivity.this, throwable.getMessage());
-                    }
-                });
-    }
-
-    @OnClick(R.id.text_commit)
-    public void commit() {
-        phone = editPhone.getText().toString();
-        if (!RegularUtil.checkPhone(phone)) {
-            Toast.showToast(this, getString(R.string.phone_pattern_error));
-            return;
-        }
-        loadingDialog.show();
-        NetWork.getApi().register(phone, verifyCode, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<LoginBean>, ObservableSource<LoginBean>>() {
-                    @Override
-                    public ObservableSource<LoginBean> apply(@NonNull HttpResult<LoginBean> result) throws Exception {
-                        return NetWork.flatResponse(result);
-                    }
-                })
-                .subscribe(new Consumer<LoginBean>() {
-                    @Override
-                    public void accept(@NonNull LoginBean loginBean) throws Exception {
-                        loadingDialog.dismiss();
-                        userId = loginBean.getUserId();
-                        Toast.showToast(RegisterActivity.this, getString(R.string.register_success));
-                        Debug.e(TAG, "userId=" + userId);
-                        SpUtil.getInstance().putLoginModel(loginBean);
-                        MainActivity.launch(RegisterActivity.this);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        loadingDialog.dismiss();
-                        Debug.e(TAG, throwable.getMessage());
-                        Toast.showToast(RegisterActivity.this, throwable.getMessage());
-                    }
-                });
-
-    }
-
-    @OnClick(R.id.text_protocol)
-    public void seeProtocol() {
-    }
-
-    @OnClick({R.id.img_clear_phone, R.id.img_clear_verify_code, R.id.img_clear_password})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.img_clear_phone:
-                editPhone.setText("");
-                imgClearPhone.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.img_clear_verify_code:
-                editVerifyCode.setText("");
-                imgClearVerifyCode.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.img_clear_password:
-                editPassword.setText("");
-                imgClearPassword.setVisibility(View.INVISIBLE);
-                break;
-        }
-    }
 }

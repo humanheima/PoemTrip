@@ -7,6 +7,9 @@ import android.databinding.ObservableBoolean;
 
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by dumingwei on 2017/11/18 0018.
  */
@@ -17,7 +20,10 @@ public abstract class BaseViewModel<T extends BaseViewModel.BaseViewModelCallBac
     protected T callBack;
     protected BaseDataBindingActivity context;
 
+    protected String TAG;
+
     public BaseViewModel(BaseDataBindingActivity context) {
+        TAG = getClass().getName();
         this.context = context;
         isLoading.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -29,6 +35,12 @@ public abstract class BaseViewModel<T extends BaseViewModel.BaseViewModelCallBac
                 }
             }
         });
+    }
+
+    protected void dispose(Disposable disposable) {
+        if (null != disposable && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 
     public void destroy() {

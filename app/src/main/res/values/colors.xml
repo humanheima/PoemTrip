@@ -3,10 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="green">#3bcc64</color>
+    <color name="green">#FF3bcc64</color>
     <color name="alpha_green">#883bcc64</color>
     <color name="gray">#ededed</color>
-    <color name="text_gray">#999999</color>
+    <color name="text_gray">#FF999999</color>
     <color name="black">#000000</color>
     <color name="bg_default">#fafafa</color>
     <color name="bg_search_bar">#e6e7e8</color>

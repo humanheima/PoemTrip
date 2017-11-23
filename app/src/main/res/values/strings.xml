@@ -21,6 +21,7 @@
     <!--RegisterActivity-->
     <string name="register_activity_title">手机注册</string>
     <string name="send_verify_tip">为了安全,我们会向你的手机发送验证码</string>
+    <string name="send_verify_success">验证码发送成功</string>
     <string name="commit">提交</string>
     <string name="agree_protocol">本人已阅读并同意</string>
     <string name="register_protocol">注册协议</string>

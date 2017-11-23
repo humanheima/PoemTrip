@@ -1,6 +1,7 @@
 package com.brotherd.poemtrip;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.brotherd.poemtrip.util.FontManager;
 import com.squareup.leakcanary.LeakCanary;
@@ -29,4 +30,5 @@ public class App extends Application {
     public static Application getInstance() {
         return instance;
     }
+
 }

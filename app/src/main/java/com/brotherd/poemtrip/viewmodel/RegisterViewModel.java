@@ -128,12 +128,8 @@ public class RegisterViewModel extends BaseViewModel {
     }
 
     public void getVerifyCode() {
-        if (TextUtils.isEmpty(mobile.get())) {
-            Toast.showToast(context.getString(R.string.phone_cant_null));
-            return;
-        }
         if (!RegularUtil.checkPhone(mobile.get())) {
-            Toast.showToast(context.getString(R.string.phone_pattern_error));
+            toastMsg.set(context.getString(R.string.phone_pattern_error));
             return;
         }
         dispose(verifyDisposable);
@@ -143,14 +139,14 @@ public class RegisterViewModel extends BaseViewModel {
                     public void accept(@NonNull VerifyCodeBean verifyCodeBean) throws Exception {
                         //发送验证码成功
                         verifyCode.set(verifyCodeBean.getVerifyCode());
-                        Toast.showToast(R.string.send_verify_success);
+                        toastMsg.set(context.getString(R.string.send_verify_success));
                         countDown();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         Debug.e(TAG, throwable.getMessage());
-                        Toast.showToast(throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
     }
@@ -187,12 +183,8 @@ public class RegisterViewModel extends BaseViewModel {
     }
 
     public void submit() {
-        if (TextUtils.isEmpty(mobile.get())) {
-            Toast.showToast(context.getString(R.string.phone_cant_null));
-            return;
-        }
         if (!RegularUtil.checkPhone(mobile.get())) {
-            Toast.showToast(context.getString(R.string.phone_pattern_error));
+            toastMsg.set(context.getString(R.string.phone_pattern_error));
             return;
         }
         isLoading.set(true);
@@ -202,7 +194,7 @@ public class RegisterViewModel extends BaseViewModel {
                     @Override
                     public void accept(@NonNull LoginBean loginBean) throws Exception {
                         isLoading.set(false);
-                        Toast.showToast(context.getString(R.string.register_success));
+                        toastMsg.set(context.getString(R.string.register_success));
                         SpUtil.getInstance().putLoginModel(loginBean);
                         MainActivity.launch(context);
                     }
@@ -211,7 +203,7 @@ public class RegisterViewModel extends BaseViewModel {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         isLoading.set(false);
                         Debug.e(TAG, throwable.getMessage());
-                        Toast.showToast(throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
 

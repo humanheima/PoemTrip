@@ -184,7 +184,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public void getVerifyCode() {
         if (!RegularUtil.checkPhone(fastMobile.get())) {
-            Toast.showToast(R.string.phone_pattern_error);
+            toastMsg.set(R.string.phone_pattern_error);
             return;
         }
         countDownUtil = new CountDownUtil();
@@ -225,7 +225,7 @@ public class LoginViewModel extends BaseViewModel {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         Debug.e(TAG, throwable.getMessage());
-                        Toast.showToast(throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
     }
@@ -234,7 +234,7 @@ public class LoginViewModel extends BaseViewModel {
         if (llAccountPwdLoginVisibility.get() == View.VISIBLE) {
             //账号密码登录
             if (!RegularUtil.checkPhone(mobile.get())) {
-                Toast.showToast(R.string.phone_pattern_error);
+                toastMsg.set(context.getString(R.string.phone_pattern_error));
                 return;
             }
             dispose(accountLoginDisposable);
@@ -245,7 +245,7 @@ public class LoginViewModel extends BaseViewModel {
                         public void accept(@NonNull LoginBean loginBean) throws Exception {
                             isLoading.set(false);
                             SpUtil.getInstance().putLoginModel(loginBean);
-                            Toast.showToast(R.string.login_success);
+                            toastMsg.set(context.getString(R.string.login_success));
                             Debug.e(TAG, "userId:" + loginBean.getUserId());
                             MainActivity.launch(context);
                             context.finish();
@@ -254,17 +254,16 @@ public class LoginViewModel extends BaseViewModel {
                         @Override
                         public void accept(@NonNull Throwable throwable) throws Exception {
                             isLoading.set(false);
-                            Toast.showToast(throwable.getMessage());
+                            toastMsg.set(throwable.getMessage());
                             Debug.e(TAG, throwable.getMessage());
                         }
                     });
         } else {
             if (!RegularUtil.checkPhone(fastMobile.get())) {
-                Toast.showToast(R.string.phone_pattern_error);
+                toastMsg.set(context.getString(R.string.phone_pattern_error));
                 return;
             }
             isLoading.set(true);
-            //请求网络
             dispose(fastLoginDisposable);
             fastLoginDisposable = model.fastLogin(fastMobile.get(), verifyCode.get())
                     .subscribe(new Consumer<LoginBean>() {
@@ -272,7 +271,7 @@ public class LoginViewModel extends BaseViewModel {
                         public void accept(@NonNull LoginBean loginBean) throws Exception {
                             isLoading.set(false);
                             SpUtil.getInstance().putLoginModel(loginBean);
-                            Toast.showToast(R.string.login_success);
+                            toastMsg.set(context.getString(R.string.login_success));
                             Debug.e(TAG, "userId:" + loginBean.getUserId());
                             MainActivity.launch(context);
                             context.finish();
@@ -281,7 +280,7 @@ public class LoginViewModel extends BaseViewModel {
                         @Override
                         public void accept(@NonNull Throwable throwable) throws Exception {
                             isLoading.set(false);
-                            Toast.showToast(throwable.getMessage());
+                            toastMsg.set(throwable.getMessage());
                             Debug.e(TAG, throwable.getMessage());
                         }
                     });

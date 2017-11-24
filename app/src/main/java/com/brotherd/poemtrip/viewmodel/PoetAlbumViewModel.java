@@ -50,7 +50,7 @@ public class PoetAlbumViewModel extends BaseViewModel {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         isLoading.set(false);
                         Debug.e(TAG, "getPoet error:" + throwable.getMessage());
-                        Toast.showToast(throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
     }

@@ -1,355 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <RelativeLayout
-        android:id="@+id/rl_title"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brotherd.poemtrip.viewmodel.LoginViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="match_parent">
+
+        <com.brotherd.poemtrip.widget.TitleLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:action="@string/register" />
 
         <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            app:srcCompat="@drawable/ic_back"/>
-
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/text_register"
-            android:layout_toRightOf="@+id/img_back"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="@string/login"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            tools:text="@string/login"/>
-
-        <TextView
-            android:id="@+id/text_register"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:paddingRight="12dp"
-            android:text="@string/register"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            tools:text="@string/register"/>
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/view_split_title"
-        style="@style/Horizontal_Line"
-        android:layout_below="@+id/rl_title"/>
-
-    <ImageView
-        android:id="@+id/img_top_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view_split_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/ic_login_logo"/>
-
-    <RelativeLayout
-        android:id="@+id/rl_login_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/img_top_logo"
-        android:layout_marginTop="40dp">
-
-        <TextView
-            android:id="@+id/text_account_pwd_login"
+            android:id="@+id/img_top_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="24dp"
-            android:layout_toLeftOf="@+id/view_split_login"
-            android:background="@drawable/bg_text_layerlist"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/account_pwd_login"
-            android:textColor="@color/green"
-            android:textSize="16sp"/>
-
-        <View
-            android:id="@+id/view_split_login"
-            android:layout_width="1px"
-            android:layout_height="1px"
+            android:layout_below="@+id/title_layout"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"/>
+            android:layout_marginTop="40dp"
+            app:srcCompat="@drawable/ic_login_logo" />
 
-        <TextView
-            android:id="@+id/text_fast_login"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_login_type"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@+id/view_split_login"
-            android:background="@drawable/bg_text"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/fast_login"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"/>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_account_pwd_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_login_type"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/bg_input">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                app:srcCompat="@drawable/ic_login_account"/>
-
-            <EditText
-                android:id="@+id/edit_phone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:layout_toLeftOf="@+id/img_clear_phone"
-                android:background="@null"
-                android:hint="@string/input_phone"
-                android:inputType="number"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:paddingLeft="8dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@color/text_gray"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:id="@+id/img_clear_phone"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_cancel"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_input">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="4dp"
-                app:srcCompat="@drawable/ic_login_pwd"/>
-
-            <EditText
-                android:id="@+id/edit_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:layout_toLeftOf="@+id/img_clear_password"
-                android:background="@null"
-                android:hint="@string/input_pwd"
-                android:inputType="textPassword"
-                android:maxLength="16"
-                android:maxLines="1"
-                android:paddingLeft="8dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@color/text_gray"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:id="@+id/img_clear_password"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_cancel"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_fast_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_login_type"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical"
-        android:visibility="invisible">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/bg_input">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/img_top_logo"
+            android:layout_marginTop="40dp">
 
             <TextView
-                android:id="@+id/text_phone_prefix"
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:text="@string/phone_prefix"
-                android:textColor="@android:color/black"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="24dp"
+                android:layout_toLeftOf="@+id/view_split_login"
+                android:background="@{viewModel.accountLogin?@drawable/bg_text_layerlist:@drawable/bg_text}"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.accountPwdLogin()}"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="@string/account_pwd_login"
+                android:textColor="@{viewModel.accountLogin?@color/green:@color/text_gray}"
+                android:textSize="16sp" />
 
             <View
-                android:id="@+id/view_spilt_phone_prefix"
-                style="@style/Vertical_Line"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="6dp"
-                android:layout_toRightOf="@+id/text_phone_prefix"/>
+                android:id="@+id/view_split_login"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent" />
 
-            <EditText
-                android:id="@+id/edit_fast_phone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@+id/img_clear_fast_phone"
-                android:layout_toRightOf="@+id/view_spilt_phone_prefix"
-                android:background="@null"
-                android:hint="@string/input_phone"
-                android:inputType="number"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:paddingLeft="8dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@color/text_gray"
-                android:textSize="14sp"/>
-
-
-            <ImageView
-                android:id="@+id/img_clear_fast_phone"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_cancel"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@+id/view_split_login"
+                android:background="@{viewModel.accountLogin?@drawable/bg_text:@drawable/bg_text_layerlist}"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.fastLogin()}"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="@string/fast_login"
+                android:textColor="@{viewModel.accountLogin?@color/text_gray:@color/green}"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/ll_account_pwd_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_login_type"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.llAccountPwdLoginVisibility}">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/bg_input">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    app:srcCompat="@drawable/ic_login_account" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="40dp"
+                    android:afterTextChanged="@{viewModel.mobileAfterTextChanged}"
+                    android:background="@null"
+                    android:hint="@string/input_phone"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:text="@={viewModel.mobile}"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{()->viewModel.clearMobile()}"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:visibility="@{viewModel.clearMobileVisibility}"
+                    app:srcCompat="@drawable/ic_cancel"
+                    tools:visibility="visible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    app:srcCompat="@drawable/ic_login_pwd" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="40dp"
+                    android:afterTextChanged="@{viewModel.passwordAfterTextChanged}"
+                    android:background="@null"
+                    android:hint="@string/input_pwd"
+                    android:inputType="textPassword"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:text="@={viewModel.password}"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{()->viewModel.clearPassword()}"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:visibility="@{viewModel.clearPasswordVisibility}"
+                    app:srcCompat="@drawable/ic_cancel" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fast_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_login_type"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.llFastLoginVisibility}"
+            tools:visibility="invisible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/bg_input">
+
+                <TextView
+                    android:id="@+id/text_phone_prefix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/phone_prefix"
+                    android:textColor="@android:color/black" />
+
+                <View
+                    android:id="@+id/view_spilt_phone_prefix"
+                    style="@style/Vertical_Line"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/text_phone_prefix" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="40dp"
+                    android:layout_toRightOf="@+id/view_spilt_phone_prefix"
+                    android:afterTextChanged="@{viewModel.fastMobileAfterTextChanged}"
+                    android:background="@null"
+                    android:hint="@string/input_phone"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:text="@={viewModel.fastMobile}"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{()->viewModel.clearFastMobile()}"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:visibility="@{viewModel.clearFastMobileVisibility}"
+                    app:srcCompat="@drawable/ic_cancel" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/img_clear_verify_code"
+                    android:layout_weight="2"
+                    android:afterTextChanged="@{viewModel.verifyCodeAfterTextChanged}"
+                    android:background="@null"
+                    android:hint="@string/input_verify_code"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:text="@{viewModel.verifyCode}"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/text_gray"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/img_clear_verify_code"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toLeftOf="@+id/text_get_verify"
+                    android:onClick="@{()->viewModel.clearVerifyCode()}"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:visibility="@{viewModel.clearVerifyCodeVisibility}"
+                    app:srcCompat="@drawable/ic_cancel" />
+
+                <TextView
+                    android:id="@+id/text_get_verify"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:background="@{viewModel.getVerifyEnable?@color/green:@color/text_gray}"
+                    android:enabled="@{viewModel.getVerifyEnable}"
+                    android:gravity="center"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:onClick="@{()->viewModel.getVerifyCode()}"
+                    android:text="@{viewModel.getVerifyText}"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_below="@+id/ll_account_pwd_login"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_input">
+            android:background="@{viewModel.loginEnable?@color/green:@color/alpha_green}"
+            android:enabled="@{viewModel.loginEnable}"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.login()}"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/edit_verify_code"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/img_clear_verify_code"
-                android:layout_weight="2"
-                android:background="@null"
-                android:hint="@string/input_verify_code"
-                android:inputType="number"
-                android:maxLength="16"
-                android:maxLines="1"
-                android:paddingLeft="8dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@color/text_gray"
-                android:textSize="14sp"/>
+    </RelativeLayout>
 
+</layout>
 
-            <ImageView
-                android:id="@+id/img_clear_verify_code"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@+id/text_get_verify"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_cancel"/>
-
-            <TextView
-                android:id="@+id/text_get_verify"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_vertical"
-                android:background="@color/text_gray"
-                android:clickable="false"
-                android:gravity="center"
-                android:maxLength="16"
-                android:maxLines="1"
-                android:text="@string/get_verify_code"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/text_login"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/ll_account_pwd_login"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/alpha_green"
-        android:clickable="false"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"/>
-
-
-</RelativeLayout>

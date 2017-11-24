@@ -28,7 +28,7 @@
     </style>
 
     <style name="LoadingDialog" parent="AppTheme">
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 

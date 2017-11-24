@@ -58,21 +58,21 @@ public class TitleLayout extends RelativeLayout {
             }
         });
         textTitle = (TextView) view.findViewById(R.id.text_title);
-        textAction = (TextView) view.findViewById(R.id.text_register);
+        textAction = (TextView) view.findViewById(R.id.text_action);
 
         if (!TextUtils.isEmpty(title)) {
             textTitle.setText(title);
         }
         if (!TextUtils.isEmpty(action)) {
             textAction.setText(action);
-            if (actionListener != null) {
-                textAction.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            textAction.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (actionListener != null) {
                         actionListener.onCustomAction();
                     }
-                });
-            }
+                }
+            });
         }
     }
 

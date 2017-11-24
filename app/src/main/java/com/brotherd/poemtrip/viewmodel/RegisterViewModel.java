@@ -38,8 +38,6 @@ public class RegisterViewModel extends BaseViewModel {
 
     public ObservableBoolean getVerifyEnable = new ObservableBoolean(false);
     public ObservableBoolean commitEnable = new ObservableBoolean(false);
-    public ObservableInt getVerifyBgColor = new ObservableInt(R.color.text_gray);
-    public ObservableInt commitBgColor = new ObservableInt(R.color.alpha_green);
 
     public ObservableInt clearMobileVisibility = new ObservableInt(View.INVISIBLE);
     public ObservableInt clearVerifyCodeVisibility = new ObservableInt(View.INVISIBLE);
@@ -51,16 +49,12 @@ public class RegisterViewModel extends BaseViewModel {
             if (TextUtils.isEmpty(s)) {
                 clearMobileVisibility.set(View.INVISIBLE);
                 getVerifyEnable.set(false);
-                getVerifyBgColor.set(R.color.text_gray);
                 commitEnable.set(false);
-                commitBgColor.set(R.color.alpha_green);
             } else {
                 clearMobileVisibility.set(View.VISIBLE);
                 getVerifyEnable.set(true);
-                getVerifyBgColor.set(R.color.green);
                 if (!TextUtils.isEmpty(verifyCode.get()) && !TextUtils.isEmpty(password.get()) && checkProtocol) {
                     commitEnable.set(true);
-                    commitBgColor.set(R.color.green);
                 }
             }
         }
@@ -72,12 +66,10 @@ public class RegisterViewModel extends BaseViewModel {
             if (TextUtils.isEmpty(s)) {
                 clearVerifyCodeVisibility.set(View.INVISIBLE);
                 commitEnable.set(false);
-                commitBgColor.set(R.color.alpha_green);
             } else {
                 clearVerifyCodeVisibility.set(View.VISIBLE);
                 if (!TextUtils.isEmpty(mobile.get()) && !TextUtils.isEmpty(password.get()) && checkProtocol) {
                     commitEnable.set(true);
-                    commitBgColor.set(R.color.green);
                 }
             }
         }
@@ -88,12 +80,10 @@ public class RegisterViewModel extends BaseViewModel {
             if (TextUtils.isEmpty(s)) {
                 clearPasswordVisibility.set(View.INVISIBLE);
                 commitEnable.set(false);
-                commitBgColor.set(R.color.alpha_green);
             } else {
                 clearPasswordVisibility.set(View.VISIBLE);
                 if (!TextUtils.isEmpty(mobile.get()) && !TextUtils.isEmpty(verifyCode.get()) && checkProtocol) {
                     commitEnable.set(true);
-                    commitBgColor.set(R.color.green);
                 }
             }
         }
@@ -106,11 +96,9 @@ public class RegisterViewModel extends BaseViewModel {
             if (isChecked) {
                 if (!TextUtils.isEmpty(mobile.get()) && !TextUtils.isEmpty(verifyCode.get()) && !TextUtils.isEmpty(password.get())) {
                     commitEnable.set(true);
-                    commitBgColor.set(R.color.green);
                 }
             } else {
                 commitEnable.set(false);
-                commitBgColor.set(R.color.alpha_green);
             }
         }
     };
@@ -173,7 +161,6 @@ public class RegisterViewModel extends BaseViewModel {
             @Override
             public void onCountDownStart() {
                 getVerifyEnable.set(false);
-                getVerifyBgColor.set(R.color.text_gray);
             }
 
             @Override
@@ -186,10 +173,8 @@ public class RegisterViewModel extends BaseViewModel {
                 getVerifyText.set(context.getString(R.string.get_verify_code));
                 if (TextUtils.isEmpty(mobile.get())) {
                     getVerifyEnable.set(false);
-                    getVerifyBgColor.set(R.color.text_gray);
                 } else {
                     getVerifyEnable.set(true);
-                    getVerifyBgColor.set(R.color.green);
                 }
             }
         });

@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="1px"
-        android:layout_toLeftOf="@+id/text_register"
+        android:layout_toLeftOf="@+id/text_action"
         android:layout_toRightOf="@+id/img_back"
         android:ellipsize="end"
         android:gravity="center"
@@ -32,7 +32,7 @@
         tools:text="标题"/>
 
     <TextView
-        android:id="@+id/text_register"
+        android:id="@+id/text_action"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

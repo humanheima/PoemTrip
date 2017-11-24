@@ -79,7 +79,7 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         Log.e(TAG, "getHotSearch" + throwable.getMessage());
-                        Toast.showToast(context, throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
     }
@@ -126,7 +126,7 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Toast.showToast(context, throwable.getMessage());
+                        toastMsg.set(throwable.getMessage());
                     }
                 });
     }

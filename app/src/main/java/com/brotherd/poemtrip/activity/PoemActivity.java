@@ -34,11 +34,7 @@ public class PoemActivity extends BaseDataBindingActivity<ActivityPoemBinding> {
         long poemId = getIntent().getLongExtra(POEM_ID, -1);
         viewModel = new PoemViewModel(this, new PoemModel(poemId));
         binding.setViewModel(viewModel);
-        if (NetWorkUtil.hasNetwork()) {
-            viewModel.getPoem();
-        } else {
-            Toast.showToast(getString(R.string.no_network));
-        }
+        viewModel.getPoem();
     }
 
 }

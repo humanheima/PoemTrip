@@ -74,12 +74,12 @@ public class HotPoemViewModel extends BaseViewModel {
                 @Override
                 public void accept(@NonNull Throwable throwable) throws Exception {
                     isLoading.set(false);
-                    Toast.showToast(throwable.getMessage());
+                    toastMsg.set(throwable.getMessage());
                     Debug.e(TAG, "getPoem error:" + throwable.getMessage());
                 }
             });
         } else {
-            Toast.showToast(R.string.no_network);
+            toastMsg.set(context.getString(R.string.no_network));
         }
     }
 
@@ -99,12 +99,12 @@ public class HotPoemViewModel extends BaseViewModel {
                         @Override
                         public void accept(@NonNull Throwable throwable) throws Exception {
                             isLoading.set(false);
-                            Toast.showToast(throwable.getMessage());
+                            toastMsg.set(throwable.getMessage());
                             Debug.e(TAG, "getPoet error:" + throwable.getMessage());
                         }
                     });
         } else {
-            Toast.showToast(R.string.no_network);
+            toastMsg.set(context.getString(R.string.no_network));
         }
     }
 

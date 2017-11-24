@@ -5,7 +5,11 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
+import android.databinding.adapters.TextViewBindingAdapter;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
@@ -24,7 +28,7 @@ import io.reactivex.functions.Consumer;
  * Created by dumingwei on 2017/11/18 0018.
  */
 
-public class SearchViewModel extends BaseViewModel {
+public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewModelCallBack> {
 
     private static final String TAG = "SearchViewModel";
     public ObservableList<SearchBean> hotSearchData = new ObservableArrayList<>();
@@ -34,11 +38,31 @@ public class SearchViewModel extends BaseViewModel {
     public ObservableInt visibility = new ObservableInt(View.VISIBLE);
     public ObservableInt historyVisibility = new ObservableInt(View.VISIBLE);
     public ObservableInt rvVisibility = new ObservableInt(View.VISIBLE);
+
+    public TextViewBindingAdapter.AfterTextChanged afterTextChanged = new TextViewBindingAdapter.AfterTextChanged() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (TextUtils.isEmpty(s)) {
+                rvVisibility.set(View.GONE);
+                visibility.set(View.VISIBLE);
+                getSearchHistory();
+            }
+        }
+    };
+
+    public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            return callBack.hideSoftKey(v, keyCode, event);
+        }
+    };
+
     private SearchModel model;
 
-    public SearchViewModel(BaseDataBindingActivity context, SearchModel model) {
+    public SearchViewModel(BaseDataBindingActivity context, SearchModel model, SearchViewModel.SearchViewModelCallBack callBack) {
         super(context);
         this.model = model;
+        this.callBack = callBack;
         SQLiteDatabase db = LitePal.getDatabase();
     }
 
@@ -66,17 +90,21 @@ public class SearchViewModel extends BaseViewModel {
                     @Override
                     public void accept(List<SearchBean> searchBeans) throws Exception {
                         if (ListUtil.notEmpty(searchBeans)) {
+                            historyVisibility.set(View.VISIBLE);
                             for (SearchBean searchBean : searchBeans) {
                                 Log.e(TAG, searchBean.getTitle() + searchBean.getTimeStamp());
                             }
                             searchHistoryData.addAll(searchBeans);
+                        } else {
+                            historyVisibility.set(View.GONE);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        historyVisibility.set(View.GONE);
+                        toastMsg.set(throwable.getMessage());
                         Log.e(TAG, "getSearchHistory" + throwable.getMessage());
-                        //Toast.showToast(context, throwable.getMessage());
                     }
                 });
     }
@@ -111,6 +139,11 @@ public class SearchViewModel extends BaseViewModel {
         model.clearHistory();
         searchHistoryData.clear();
         historyVisibility.set(View.GONE);
+    }
+
+    public interface SearchViewModelCallBack extends BaseViewModel.BaseViewModelCallBack {
+
+        boolean hideSoftKey(View v, int keyCode, KeyEvent event);
     }
 
 }

@@ -4,14 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
-import com.brotherd.poemtrip.base.BaseActivity;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.base.BaseFragment;
 import com.brotherd.poemtrip.databinding.ActivityMainBinding;
@@ -20,11 +15,6 @@ import com.brotherd.poemtrip.fragment.MineFragment;
 import com.brotherd.poemtrip.util.CheckLoginUtil;
 import com.brotherd.poemtrip.viewmodel.MainViewModel;
 import com.brotherd.poemtrip.viewmodel.model.MainModel;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
 
 public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
 

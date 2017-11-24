@@ -62,10 +62,12 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
+                    android:afterTextChanged="@{viewModel.afterTextChanged}"
                     android:background="@null"
-                    android:singleLine="true"
                     android:hint="@string/please_input_search_content"
                     android:imeOptions="actionSearch"
+                    android:onKey="@{viewModel.onKeyListener}"
+                    android:singleLine="true"
                     android:text="@={viewModel.searchContent}"
                     android:textSize="14sp" />
 

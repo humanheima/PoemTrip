@@ -6,8 +6,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.brotherd.poemtrip.R;
-import com.brotherd.poemtrip.activity.PoemActivity;
-import com.brotherd.poemtrip.activity.PoetAlbumActivity;
 import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
 import com.brotherd.poemtrip.adapter.GridViewAdapter;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
@@ -15,27 +13,10 @@ import com.brotherd.poemtrip.base.BaseFragment;
 import com.brotherd.poemtrip.bean.PoemBean;
 import com.brotherd.poemtrip.bean.PoetBean;
 import com.brotherd.poemtrip.databinding.FragmentHotPoemBinding;
-import com.brotherd.poemtrip.network.HttpResult;
-import com.brotherd.poemtrip.network.NetWork;
-import com.brotherd.poemtrip.util.Debug;
-import com.brotherd.poemtrip.util.NetWorkUtil;
 import com.brotherd.poemtrip.util.ScreenUtil;
-import com.brotherd.poemtrip.util.Toast;
 import com.brotherd.poemtrip.viewmodel.HotPoemViewModel;
-import com.brotherd.poemtrip.widget.LoadingDialog;
-import com.brotherd.poemtrip.widget.NoScrollGridView;
-import com.brotherd.poemtrip.widget.banner.banner.SimpleBanner;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 public class HotPoemFragment extends BaseFragment<FragmentHotPoemBinding> {
 

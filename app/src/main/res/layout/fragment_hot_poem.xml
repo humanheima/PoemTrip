@@ -122,12 +122,12 @@
                     android:textSize="14sp" />
 
                 <LinearLayout
-                    android:onClick="@{()->viewModel.getHotPoet()}"
                     android:id="@+id/ll_poet_more"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="8dp"
+                    android:onClick="@{()->viewModel.getHotPoet()}"
                     android:orientation="horizontal">
 
                     <TextView

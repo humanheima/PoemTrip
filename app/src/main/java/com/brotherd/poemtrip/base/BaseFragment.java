@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.brotherd.poemtrip.widget.LoadingDialog;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * Created by dumingwei on 2017/5/1.
  */

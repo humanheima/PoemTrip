@@ -6,6 +6,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
@@ -17,6 +18,7 @@ import com.brotherd.poemtrip.bean.PoemBean;
 import com.brotherd.poemtrip.bean.PoetBean;
 import com.brotherd.poemtrip.bean.SearchBean;
 import com.brotherd.poemtrip.widget.banner.banner.SimpleBanner;
+import com.bumptech.glide.Glide;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -28,6 +30,11 @@ import java.util.List;
  */
 
 public class BindingUtil {
+
+    @BindingAdapter({"imageUrl"})
+    public static void loadImage(ImageView view, String url) {
+        ImageUtil.loadImage(view.getContext(), url, view);
+    }
 
     @BindingAdapter({"tagData"})
     public static void setTagData(TagFlowLayout tagFlowLayout, List<SearchBean> data) {
@@ -76,6 +83,13 @@ public class BindingUtil {
     public static void setHotPoet(GridView gridView, List<PoetBean> poetList) {
         if (null != gridView.getAdapter()) {
             ((BaseGridViewAdapter) gridView.getAdapter()).setData(poetList);
+        }
+    }
+
+    @BindingAdapter({"data"})
+    public static void setData(RecyclerView recyclerView, List<?> poetList) {
+        if (null != recyclerView.getAdapter()) {
+            ((BaseRecyclerViewAdapter) recyclerView.getAdapter()).setData(poetList);
         }
     }
 

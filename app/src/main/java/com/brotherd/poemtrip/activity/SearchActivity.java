@@ -21,7 +21,7 @@ import com.brotherd.poemtrip.viewmodel.model.SearchModel;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
-public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBinding> {
+public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBinding> implements SearchViewModel.SearchViewModelCallBack {
 
     private SearchViewModel viewModel;
     private InputMethodManager manager;
@@ -51,7 +51,7 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
 
             }
         });
-        viewModel = new SearchViewModel(this, new SearchModel());
+        viewModel = new SearchViewModel(this, new SearchModel(),this);
         binding.setViewModel(viewModel);
         viewModel.getHotSearch();
         viewModel.getSearchHistory();
@@ -59,28 +59,6 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
 
     @Override
     protected void bindEvent() {
-        binding.etSearch.addTextChangedListener(new TextWatcherImpl() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s.toString())) {
-                    viewModel.rvVisibility.set(View.GONE);
-                    viewModel.visibility.set(View.VISIBLE);
-                }
-            }
-        });
-        binding.etSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    //先隐藏键盘
-                    if (manager.isActive()) {
-                        manager.hideSoftInputFromWindow(binding.etSearch.getApplicationWindowToken(), 0);
-                    }
-                    viewModel.search();
-                }
-                return false;
-            }
-        });
         binding.tagHotSearch.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
@@ -95,5 +73,17 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean hideSoftKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //先隐藏键盘
+            if (manager.isActive()) {
+                manager.hideSoftInputFromWindow(binding.etSearch.getApplicationWindowToken(), 0);
+            }
+            viewModel.search();
+        }
+        return false;
     }
 }

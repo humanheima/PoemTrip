@@ -31,6 +31,11 @@ public abstract class BaseGridViewAdapter<T> extends ArrayAdapter<T> {
         this.resource = resource;
     }
 
+    public void setData(List<T> dataList) {
+        this.dataList = dataList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         T data = dataList.get(position);

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.inter.OnBannerClickListener;
+import com.brotherd.poemtrip.util.ListUtil;
 import com.brotherd.poemtrip.util.ScreenUtil;
 import com.bumptech.glide.Glide;
 
@@ -204,6 +205,15 @@ public class SimpleBanner extends RelativeLayout implements ViewPager.OnPageChan
     public SimpleBanner setImages(List<?> imagesUrl) {
         this.imageUrls = imagesUrl;
         return this;
+    }
+
+    public void setBannerData(BannerData bannerData) {
+        if (ListUtil.notEmpty(bannerData.images) && ListUtil.notEmpty(bannerData.titles) &&
+                bannerData.images.size() == bannerData.titles.size()) {
+            this.imageUrls = bannerData.images;
+            this.titles = bannerData.titles;
+            start();
+        }
     }
 
     public SimpleBanner setTransitionEffect(TransitionEffect transitionEffect) {
@@ -448,4 +458,16 @@ public class SimpleBanner extends RelativeLayout implements ViewPager.OnPageChan
             }
         }
     }
+
+    public static class BannerData {
+
+        private List<?> images;
+        private List<String> titles;
+
+        public BannerData(List<?> images, List<String> titles) {
+            this.images = images;
+            this.titles = titles;
+        }
+    }
+
 }

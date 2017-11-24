@@ -1,7 +1,5 @@
 package com.brotherd.poemtrip.viewmodel;
 
-import android.app.Activity;
-import android.content.Context;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -10,7 +8,6 @@ import android.text.TextUtils;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.util.Toast;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**

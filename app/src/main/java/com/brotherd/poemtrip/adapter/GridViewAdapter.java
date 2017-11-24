@@ -19,20 +19,25 @@ import java.util.List;
  */
 public class GridViewAdapter extends ArrayAdapter<PoemBean> {
 
-    private List<PoemBean> poemBeanList;
+    private List<PoemBean> data;
     private Context context;
     private int resource;
 
-    public GridViewAdapter(Context context, int resource, List<PoemBean> poemBeanList) {
-        super(context, resource, poemBeanList);
-        this.poemBeanList = poemBeanList;
+    public GridViewAdapter(Context context, int resource, List<PoemBean> data) {
+        super(context, resource, data);
+        this.data = data;
         this.context = context;
         this.resource = resource;
     }
 
+    public void setData(List<PoemBean> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PoemBean poemBean = poemBeanList.get(position);
+        PoemBean poemBean = data.get(position);
         View view;
         ViewHolder holder;
         if (convertView == null) {
@@ -48,7 +53,7 @@ public class GridViewAdapter extends ArrayAdapter<PoemBean> {
         }
         String imageUrl = poemBean.getImageUrl();
         ImageUtil.loadImage(context, imageUrl, holder.imgCover);
-        holder.textTitle.setText(poemBean.getTitle().replaceAll("。","--"));
+        holder.textTitle.setText(poemBean.getTitle().replaceAll("。", "--"));
         holder.textPoet.setText(poemBean.getPoet());
         return view;
     }

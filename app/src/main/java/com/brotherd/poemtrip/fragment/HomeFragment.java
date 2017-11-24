@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.adapter.ViewPagerAdapter;
 import com.brotherd.poemtrip.base.BaseFragment;
+import com.brotherd.poemtrip.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,9 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     private final String TAG = getClass().getSimpleName();
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
 
     private BaseFragment hotPoemFragment;
     private ViewPagerAdapter adapter;
@@ -35,7 +34,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected int bindLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_home;
     }
 
@@ -45,7 +44,7 @@ public class HomeFragment extends BaseFragment {
         hotPoemFragment = HotPoemFragment.newInstance();
         fragmentList.add(hotPoemFragment);
         adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), fragmentList);
-        viewPager.setAdapter(adapter);
+        binding.viewPager.setAdapter(adapter);
     }
 
 }

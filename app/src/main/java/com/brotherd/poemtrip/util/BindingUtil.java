@@ -5,12 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
+import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
 import com.brotherd.poemtrip.adapter.BaseRecyclerViewAdapter;
+import com.brotherd.poemtrip.adapter.GridViewAdapter;
 import com.brotherd.poemtrip.base.BaseAdapter;
+import com.brotherd.poemtrip.bean.PoemBean;
+import com.brotherd.poemtrip.bean.PoetBean;
 import com.brotherd.poemtrip.bean.SearchBean;
+import com.brotherd.poemtrip.widget.banner.banner.SimpleBanner;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -50,6 +56,27 @@ public class BindingUtil {
     @BindingAdapter({"htmlText"})
     public static void setHtmlText(TextView tv, String text) {
         tv.setText(Html.fromHtml(text));
+    }
+
+    @BindingAdapter({"bannerData"})
+    public static void setBannerData(SimpleBanner banner, SimpleBanner.BannerData bannerData) {
+        if (null != banner) {
+            banner.setBannerData(bannerData);
+        }
+    }
+
+    @BindingAdapter({"hotPoem"})
+    public static void setHotPoem(GridView gridView, List<PoemBean> poemList) {
+        if (null != gridView.getAdapter()) {
+            ((GridViewAdapter) gridView.getAdapter()).setData(poemList);
+        }
+    }
+
+    @BindingAdapter({"hotPoet"})
+    public static void setHotPoet(GridView gridView, List<PoetBean> poetList) {
+        if (null != gridView.getAdapter()) {
+            ((BaseGridViewAdapter) gridView.getAdapter()).setData(poetList);
+        }
     }
 
 }

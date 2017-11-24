@@ -8,13 +8,17 @@ import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseActivity;
+import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.bean.PoemBean;
+import com.brotherd.poemtrip.databinding.ActivityPoemBinding;
 import com.brotherd.poemtrip.network.HttpResult;
 import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.Debug;
 import com.brotherd.poemtrip.util.NetWorkUtil;
 import com.brotherd.poemtrip.util.RegularUtil;
 import com.brotherd.poemtrip.util.Toast;
+import com.brotherd.poemtrip.viewmodel.PoemViewModel;
+import com.brotherd.poemtrip.viewmodel.model.PoemModel;
 
 import butterknife.BindView;
 import io.reactivex.ObservableSource;
@@ -24,24 +28,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class PoemActivity extends BaseActivity {
+public class PoemActivity extends BaseDataBindingActivity<ActivityPoemBinding> {
 
     public static final String POEM_ID = "poemId";
     private static final String TAG = "PoemActivity";
-    @BindView(R.id.text_poem_title)
-    TextView textPoemTitle;
-    @BindView(R.id.text_author_dynasty)
-    TextView textAuthorDynasty;
-    @BindView(R.id.text_annotation_tip)
-    TextView textAnnoationTip;
-    @BindView(R.id.text_annotation)
-    TextView textAnnotation;
-    @BindView(R.id.text_description)
-    TextView textDescription;
-    @BindView(R.id.text_poem_content)
-    TextView textPoemContent;
 
-    private long poemId;
+    private PoemViewModel viewModel;
 
     public static void launch(Context context, long poemId) {
         Intent starter = new Intent(context, PoemActivity.class);
@@ -50,64 +42,20 @@ public class PoemActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_poem;
     }
 
     @Override
     protected void initData() {
-        poemId = getIntent().getLongExtra(POEM_ID, -1);
-        if (poemId == -1) {
-            return;
-        }
+        long poemId = getIntent().getLongExtra(POEM_ID, -1);
+        viewModel = new PoemViewModel(this, new PoemModel(poemId));
+        binding.setViewModel(viewModel);
         if (NetWorkUtil.hasNetwork()) {
-            getPoem();
+            viewModel.getPoem();
         } else {
-            Toast.showToast(this, getString(R.string.no_network));
+            Toast.showToast(getString(R.string.no_network));
         }
-    }
-
-    private void getPoem() {
-        NetWork.getApi().getPoem(poemId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<HttpResult<PoemBean>, ObservableSource<PoemBean>>() {
-                    @Override
-                    public ObservableSource<PoemBean> apply(@NonNull HttpResult<PoemBean> result) throws Exception {
-                        return NetWork.flatResponse(result);
-                    }
-                })
-                .subscribe(new Consumer<PoemBean>() {
-                    @Override
-                    public void accept(@NonNull PoemBean poemBean) throws Exception {
-                        updateUI(poemBean);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        Toast.showToast(PoemActivity.this, throwable.getMessage());
-                        Debug.e(TAG, "getPoem error:" + throwable.getMessage());
-                    }
-                });
-    }
-
-    private void updateUI(PoemBean poemBean) {
-        textPoemTitle.setText(poemBean.getTitle().replaceAll("。", "--"));
-        String poet = poemBean.getPoet();
-        String dynasty = poemBean.getAge();
-        textAuthorDynasty.setText(String.format("%s（%s）", poet, dynasty));
-        String content = poemBean.getContent();
-        textPoemContent.setText(content.replaceAll("<br />", "").replaceAll("。", "\n").replaceAll("<[\\w/]+>", ""));
-        String translation = poemBean.getTranslation();
-        if (TextUtils.isEmpty(translation)) {
-            textAnnoationTip.setVisibility(View.GONE);
-            textAnnotation.setVisibility(View.GONE);
-        } else {
-            textAnnoationTip.setVisibility(View.VISIBLE);
-            textAnnotation.setVisibility(View.VISIBLE);
-            textAnnotation.setText(RegularUtil.getPlainString(translation));
-        }
-        textDescription.setText(RegularUtil.getPlainString(poemBean.getDescription()));
     }
 
 }

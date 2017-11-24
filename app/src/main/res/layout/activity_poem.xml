@@ -1,105 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brotherd.poemtrip.viewmodel.PoemViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.brotherd.poemtrip.widget.TitleLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:title="@string/poem_activity_title"/>
-
-        <View style="@style/Horizontal_Line"/>
-
-        <TextView
-            android:id="@+id/text_poem_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
-            <!--空白占位-->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.brotherd.poemtrip.widget.TitleLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:title="@string/poem_activity_title" />
+
+            <View style="@style/Horizontal_Line" />
 
             <TextView
-                android:id="@+id/text_author_dynasty"
-                android:layout_width="0dp"
+                android:id="@+id/text_poem_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
+                android:layout_margin="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{viewModel.poemTitle}"
                 android:textColor="@color/black"
-                android:textSize="12sp"/>
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+                <!--空白占位-->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/text_author_dynasty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{viewModel.authorDynasty}"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="@{viewModel.poemContent}"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:maxLines="1"
+                android:text="@string/poem_annotation"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.annoationTipVisibility}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:text="@{viewModel.annotation}"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.annoationVisibility}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="@string/poet"
+                android:textColor="@color/green"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:lineSpacingMultiplier="1.4"
+                android:text="@{viewModel.description}"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_poem_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="14sp"/>
+    </android.support.v4.widget.NestedScrollView>
+</layout>
 
-        <TextView
-            android:id="@+id/text_annotation_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:maxLines="1"
-            android:text="@string/poem_annotation"
-            android:textColor="@color/green"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:id="@+id/text_annotation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ellipsize="end"
-            android:textColor="@color/black"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:maxLines="1"
-            android:text="@string/poet"
-            android:textColor="@color/green"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:id="@+id/text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:lineSpacingMultiplier="1.4"
-            android:textColor="@color/black"
-            android:textSize="12sp"/>
-
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>

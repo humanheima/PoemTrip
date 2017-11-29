@@ -34,7 +34,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
         holder.binding.executePendingBindings();
     }
 
-    protected abstract void bindHolder(BaseHolder holder, int position, T t);
+    protected void bindHolder(BaseHolder holder, int position, T t) {
+    }
 
     @Override
     public int getItemCount() {

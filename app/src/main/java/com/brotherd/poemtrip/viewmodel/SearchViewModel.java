@@ -15,7 +15,6 @@ import android.view.View;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.bean.SearchBean;
 import com.brotherd.poemtrip.util.ListUtil;
-import com.brotherd.poemtrip.util.Toast;
 import com.brotherd.poemtrip.viewmodel.model.SearchModel;
 
 import org.litepal.LitePal;
@@ -53,7 +52,10 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
     public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
-            return callBack.hideSoftKey(v, keyCode, event);
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                return callBack.hideSoftKeyAndSearch();
+            }
+            return false;
         }
     };
 
@@ -94,6 +96,7 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
                             for (SearchBean searchBean : searchBeans) {
                                 Log.e(TAG, searchBean.getTitle() + searchBean.getTimeStamp());
                             }
+                            searchHistoryData.clear();
                             searchHistoryData.addAll(searchBeans);
                         } else {
                             historyVisibility.set(View.GONE);
@@ -103,13 +106,14 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         historyVisibility.set(View.GONE);
-                        toastMsg.set(throwable.getMessage());
+                        //toastMsg.set(throwable.getMessage());
                         Log.e(TAG, "getSearchHistory" + throwable.getMessage());
                     }
                 });
     }
 
     public void search() {
+        callBack.hideSoftKey();
         model.search(searchContent.get())
                 .subscribe(new Consumer<List<SearchBean>>() {
                     @Override
@@ -143,7 +147,9 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
 
     public interface SearchViewModelCallBack extends BaseViewModel.BaseViewModelCallBack {
 
-        boolean hideSoftKey(View v, int keyCode, KeyEvent event);
+        boolean hideSoftKeyAndSearch();
+
+        boolean hideSoftKey();
     }
 
 }

@@ -45,13 +45,8 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
             protected int getLayoutId() {
                 return R.layout.item_search_result;
             }
-
-            @Override
-            protected void bindHolder(BaseHolder holder, int position, SearchBean searchBean) {
-
-            }
         });
-        viewModel = new SearchViewModel(this, new SearchModel(),this);
+        viewModel = new SearchViewModel(this, new SearchModel(), this);
         binding.setViewModel(viewModel);
         viewModel.getHotSearch();
         viewModel.getSearchHistory();
@@ -76,14 +71,20 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
     }
 
     @Override
-    public boolean hideSoftKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-            //先隐藏键盘
-            if (manager.isActive()) {
-                manager.hideSoftInputFromWindow(binding.etSearch.getApplicationWindowToken(), 0);
-            }
-            viewModel.search();
+    public boolean hideSoftKey() {
+        if (manager.isActive()) {
+            manager.hideSoftInputFromWindow(binding.etSearch.getApplicationWindowToken(), 0);
         }
         return false;
     }
+
+    @Override
+    public boolean hideSoftKeyAndSearch() {
+        if (manager.isActive()) {
+            manager.hideSoftInputFromWindow(binding.etSearch.getApplicationWindowToken(), 0);
+        }
+        viewModel.search();
+        return false;
+    }
+
 }

@@ -87,11 +87,11 @@ public class SearchModel {
 
     private void saveSearchHistory(final String title) {
         Log.e(TAG, "saveSearchHistory");
-        SearchBean bean = DataSupport.where("title = ?", "title").findFirst(SearchBean.class);
+        SearchBean bean = DataSupport.where("title = ?", title).findFirst(SearchBean.class);
         if (null != bean) {
             bean.setTimeStamp(System.currentTimeMillis());
             bean.setTitle(title);
-            int row = bean.updateAll("title = ?", "title");
+            int row = bean.update(bean.getId());
             Log.e(TAG, "row=" + row);
         } else {
             bean = new SearchBean();

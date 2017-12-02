@@ -3,6 +3,7 @@ package com.brotherd.poemtrip.util;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
+import com.brotherd.poemtrip.activity.PoemActivity;
 import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
 import com.brotherd.poemtrip.adapter.BaseRecyclerViewAdapter;
 import com.brotherd.poemtrip.adapter.GridViewAdapter;
@@ -62,6 +64,10 @@ public class BindingUtil {
 
     @BindingAdapter({"htmlText"})
     public static void setHtmlText(TextView tv, String text) {
+        if (!TextUtils.isEmpty(text)) {
+            text = text.replaceAll("<h2>", "<font color='#3bcc64'>");
+            text = text.replaceAll("</h2>", "</font>");
+        }
         tv.setText(Html.fromHtml(text));
     }
 

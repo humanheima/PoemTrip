@@ -49,6 +49,8 @@ public class HotPoemFragment extends BaseFragment<FragmentHotPoemBinding> {
         initGridPoet();
         viewModel = new HotPoemViewModel(((BaseDataBindingActivity) getActivity()));
         binding.setViewModel(viewModel);
+        viewModel.getHotPoem();
+        viewModel.getHotPoet();
     }
 
     private void initGridPoem() {

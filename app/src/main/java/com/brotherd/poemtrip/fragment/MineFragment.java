@@ -2,8 +2,9 @@ package com.brotherd.poemtrip.fragment;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseFragment;
+import com.brotherd.poemtrip.databinding.FragmentMineBinding;
 
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment<FragmentMineBinding> {
 
     public MineFragment() {
         // Required empty public constructor

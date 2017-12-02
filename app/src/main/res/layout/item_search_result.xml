@@ -7,6 +7,10 @@
         <variable
             name="data"
             type="com.brotherd.poemtrip.bean.SearchBean" />
+
+        <variable
+            name="clickHandler"
+            type="com.brotherd.poemtrip.viewmodel.SearchViewModel.ClickHandler" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,6 +24,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
+            android:onClick="@{()->clickHandler.onClick(data.poemId)}"
             app:htmlText="@{data.title}"
             tools:text="搜索标题" />
 

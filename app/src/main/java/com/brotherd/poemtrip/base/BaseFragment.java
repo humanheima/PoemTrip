@@ -15,7 +15,6 @@ import com.brotherd.poemtrip.widget.LoadingDialog;
  */
 public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
 
-    protected LoadingDialog loadingDialog;
     protected V binding;
 
     @Override
@@ -32,14 +31,6 @@ public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
 
     protected void bindEvent() {
 
-    }
-
-    protected void showLoading() {
-        ((BaseDataBindingActivity) getActivity()).showLoading();
-    }
-
-    protected void hideLoading() {
-        ((BaseDataBindingActivity) getActivity()).hideLoading();
     }
 
 }

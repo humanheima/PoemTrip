@@ -2,20 +2,23 @@ package com.brotherd.poemtrip.viewmodel.model;
 
 import android.util.Log;
 
+import com.brotherd.poemtrip.Constant;
 import com.brotherd.poemtrip.bean.SearchBean;
+import com.brotherd.poemtrip.network.HttpResult;
+import com.brotherd.poemtrip.network.NetWork;
 import com.brotherd.poemtrip.util.ListUtil;
 
 import org.litepal.crud.DataSupport;
-import org.litepal.crud.callback.FindCallback;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -66,21 +69,15 @@ public class SearchModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<List<SearchBean>> search(String searchContent) {
-        saveSearchHistory(searchContent);
-        List<SearchBean> data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            SearchBean bean = new SearchBean();
-            bean.setPoemId(i);
-            bean.setPoetId(i);
-            if (i % 3 == 0) {
-                bean.setTitle("白居易<font color='#3bcc64'>诗人</font>" + i);
-            } else {
-                bean.setTitle("孟浩然<font color='#3bcc64'>诗人</font>" + i);
-            }
-            data.add(bean);
-        }
-        return Observable.just(data)
+    public Observable<List<SearchBean>> search(String keyword) {
+        saveSearchHistory(keyword);
+        return NetWork.getApi().search(keyword)
+                .flatMap(new Function<HttpResult<List<SearchBean>>, Observable<List<SearchBean>>>() {
+                    @Override
+                    public Observable<List<SearchBean>> apply(HttpResult<List<SearchBean>> result) throws Exception {
+                        return NetWork.flatResponse(result);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

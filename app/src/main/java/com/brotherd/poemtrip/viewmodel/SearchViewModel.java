@@ -1,17 +1,20 @@
 package com.brotherd.poemtrip.viewmodel;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
 import android.databinding.adapters.TextViewBindingAdapter;
+import android.opengl.Visibility;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.brotherd.poemtrip.activity.PoemActivity;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.bean.SearchBean;
 import com.brotherd.poemtrip.util.ListUtil;
@@ -37,6 +40,7 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
     public ObservableInt visibility = new ObservableInt(View.VISIBLE);
     public ObservableInt historyVisibility = new ObservableInt(View.VISIBLE);
     public ObservableInt rvVisibility = new ObservableInt(View.VISIBLE);
+    public ObservableInt layoutEmptyVisibility = new ObservableInt(View.GONE);
 
     public TextViewBindingAdapter.AfterTextChanged afterTextChanged = new TextViewBindingAdapter.AfterTextChanged() {
         @Override
@@ -45,6 +49,8 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
                 rvVisibility.set(View.GONE);
                 visibility.set(View.VISIBLE);
                 getSearchHistory();
+            } else {
+                search();
             }
         }
     };
@@ -113,23 +119,30 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
     }
 
     public void search() {
+        if (TextUtils.isEmpty(searchContent.get())) {
+            return;
+        }
         callBack.hideSoftKey();
         model.search(searchContent.get())
                 .subscribe(new Consumer<List<SearchBean>>() {
                     @Override
                     public void accept(List<SearchBean> searchBeans) throws Exception {
+                        searchResult.clear();
                         if (ListUtil.notEmpty(searchBeans)) {
                             searchResult.addAll(searchBeans);
                             rvVisibility.set(View.VISIBLE);
                             visibility.set(View.GONE);
+                            layoutEmptyVisibility.set(View.GONE);
                         } else {
                             rvVisibility.set(View.GONE);
                             visibility.set(View.VISIBLE);
+                            layoutEmptyVisibility.set(View.VISIBLE);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        layoutEmptyVisibility.set(View.VISIBLE);
                         toastMsg.set(throwable.getMessage());
                     }
                 });
@@ -150,6 +163,19 @@ public class SearchViewModel extends BaseViewModel<SearchViewModel.SearchViewMod
         boolean hideSoftKeyAndSearch();
 
         boolean hideSoftKey();
+    }
+
+    public static class ClickHandler {
+
+        private Context context;
+
+        public ClickHandler(Context context) {
+            this.context = context;
+        }
+
+        public void onClick(long poemId) {
+            PoemActivity.launch(context, poemId);
+        }
     }
 
 }

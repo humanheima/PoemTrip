@@ -22,10 +22,16 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
     @Override
     public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(), parent, false);
-        return new BaseHolder(view);
+        BaseHolder baseHolder = new BaseHolder(view);
+        createHolder(baseHolder);
+        return baseHolder;
     }
 
     protected abstract int getLayoutId();
+
+    protected void createHolder(BaseHolder baseHolder) {
+
+    }
 
     @Override
     public void onBindViewHolder(BaseHolder holder, int position) {
@@ -56,6 +62,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
             binding = DataBindingUtil.bind(itemView);
         }
 
+        public V getBinding() {
+            return binding;
+        }
     }
+
 
 }

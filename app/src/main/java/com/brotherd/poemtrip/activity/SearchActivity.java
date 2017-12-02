@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.brotherd.poemtrip.BR;
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.base.BaseAdapter;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
@@ -40,12 +41,20 @@ public class SearchActivity extends BaseDataBindingActivity<ActivitySearchBindin
     protected void initData() {
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
-        binding.rv.setAdapter(new BaseAdapter<SearchBean>() {
-            @Override
-            protected int getLayoutId() {
-                return R.layout.item_search_result;
-            }
-        });
+        binding.rv.setAdapter(
+                new BaseAdapter<SearchBean>() {
+                    @Override
+                    protected int getLayoutId() {
+                        return R.layout.item_search_result;
+                    }
+
+                    @Override
+                    protected void createHolder(BaseHolder baseHolder) {
+                        baseHolder.getBinding().setVariable(BR.clickHandler,
+                                new SearchViewModel.ClickHandler(SearchActivity.this));
+                    }
+                }
+        );
         viewModel = new SearchViewModel(this, new SearchModel(), this);
         binding.setViewModel(viewModel);
         viewModel.getHotSearch();

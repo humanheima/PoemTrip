@@ -101,84 +101,96 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{viewModel.rvVisibility}"
-                app:searchData="@{viewModel.searchResult}"
-                tools:visibility="gone" />
+                android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="@{viewModel.visibility}">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewModel.rvVisibility}"
+                    app:searchData="@{viewModel.searchResult}"
+                    tools:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/hot_search"
-                        android:textSize="14sp" />
-
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/tag_hot_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        app:max_select="1"
-                        app:tagData="@{viewModel.hotSearchData}" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="@{viewModel.historyVisibility}">
+                    android:visibility="@{viewModel.visibility}">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp">
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/history"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/hot_search"
                             android:textSize="14sp" />
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentRight="true"
-                            android:onClick="@{()->viewModel.clearHistory()}"
-                            android:padding="8dp"
-                            app:srcCompat="@drawable/ic_empty" />
+                        <com.zhy.view.flowlayout.TagFlowLayout
+                            android:id="@+id/tag_hot_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:max_select="1"
+                            app:tagData="@{viewModel.hotSearchData}" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
-
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/tag_search_history"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:max_select="1"
-                        app:tagData="@{viewModel.searchHistoryData}" />
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.historyVisibility}">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/history"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_alignParentRight="true"
+                                android:onClick="@{()->viewModel.clearHistory()}"
+                                android:padding="8dp"
+                                app:srcCompat="@drawable/ic_empty" />
+
+                        </RelativeLayout>
+
+
+                        <com.zhy.view.flowlayout.TagFlowLayout
+                            android:id="@+id/tag_search_history"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:max_select="1"
+                            app:tagData="@{viewModel.searchHistoryData}" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/layout_empty"
+                layout="@layout/layout_empty"
+                android:visibility="@{viewModel.layoutEmptyVisibility}"
+                tools:visibility="visible" />
 
         </RelativeLayout>
 

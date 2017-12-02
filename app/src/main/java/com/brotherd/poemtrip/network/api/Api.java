@@ -4,6 +4,7 @@ import com.brotherd.poemtrip.bean.LoginBean;
 import com.brotherd.poemtrip.bean.PoemBean;
 import com.brotherd.poemtrip.bean.PoetAlbum;
 import com.brotherd.poemtrip.bean.PoetBean;
+import com.brotherd.poemtrip.bean.SearchBean;
 import com.brotherd.poemtrip.bean.VerifyCodeBean;
 import com.brotherd.poemtrip.network.HttpResult;
 
@@ -16,7 +17,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by dumingwei on 2017/4/30.
@@ -61,4 +64,7 @@ public interface Api {
      */
     @GET("/getPoet")
     Observable<HttpResult<PoetAlbum>> getPoetAlbum(@Query("poetId") long poetId);
+
+    @GET("/search")
+    Observable<HttpResult<List<SearchBean>>> search(@Query("keyword") String path);
 }

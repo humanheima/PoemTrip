@@ -5,7 +5,7 @@ package com.brotherd.poemtrip;
  */
 public class Constant {
 
-    public static final String BASE_URL = "http://192.168.0.9:8080";
+    public static final String BASE_URL = "http://192.168.0.13:8080";
     public static final int RESULT_SUCCESS = 0;
     public static final String SECURITY = "security";
 }

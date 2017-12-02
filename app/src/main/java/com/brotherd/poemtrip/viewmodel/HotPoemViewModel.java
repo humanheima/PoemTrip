@@ -63,21 +63,22 @@ public class HotPoemViewModel extends BaseViewModel {
         if (NetWorkUtil.hasNetwork()) {
             isLoading.set(true);
             dispose(poemDispos);
-            poemDispos = model.getHotPoem().subscribe(new Consumer<List<PoemBean>>() {
-                @Override
-                public void accept(@NonNull List<PoemBean> poemBeans) throws Exception {
-                    isLoading.set(false);
-                    poemList.clear();
-                    poemList.addAll(poemBeans);
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(@NonNull Throwable throwable) throws Exception {
-                    isLoading.set(false);
-                    toastMsg.set(throwable.getMessage());
-                    Debug.e(TAG, "getPoem error:" + throwable.getMessage());
-                }
-            });
+            poemDispos = model.getHotPoem()
+                    .subscribe(new Consumer<List<PoemBean>>() {
+                        @Override
+                        public void accept(@NonNull List<PoemBean> poemBeans) throws Exception {
+                            isLoading.set(false);
+                            poemList.clear();
+                            poemList.addAll(poemBeans);
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable) throws Exception {
+                            isLoading.set(false);
+                            toastMsg.set(throwable.getMessage());
+                            Debug.e(TAG, "getPoem error:" + throwable.getMessage());
+                        }
+                    });
         } else {
             toastMsg.set(context.getString(R.string.no_network));
         }

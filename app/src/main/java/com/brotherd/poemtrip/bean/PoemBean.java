@@ -25,6 +25,9 @@ public class PoemBean implements Parcelable{
     private String translation;
     private String description;
 
+    public PoemBean() {
+    }
+
     protected PoemBean(Parcel in) {
         poemId = in.readLong();
         poetId = in.readLong();

@@ -22,14 +22,14 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
     @Override
     public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(), parent, false);
-        BaseHolder baseHolder = new BaseHolder(view);
-        createHolder(baseHolder);
-        return baseHolder;
+        BaseHolder holder = new BaseHolder(view);
+        createHolder(holder);
+        return holder;
     }
 
     protected abstract int getLayoutId();
 
-    protected void createHolder(BaseHolder baseHolder) {
+    protected void createHolder(BaseHolder holder) {
 
     }
 

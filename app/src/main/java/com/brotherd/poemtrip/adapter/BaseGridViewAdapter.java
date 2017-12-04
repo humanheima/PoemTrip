@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
+import com.brotherd.poemtrip.util.Debug;
+import com.brotherd.poemtrip.util.ListUtil;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 public abstract class BaseGridViewAdapter<T> extends ArrayAdapter<T> {
 
+    private static final String TAG = "BaseGridViewAdapter";
     private List<T> dataList;
     private Context context;
     private int resource;
@@ -32,8 +35,11 @@ public abstract class BaseGridViewAdapter<T> extends ArrayAdapter<T> {
     }
 
     public void setData(List<T> dataList) {
-        this.dataList = dataList;
-        notifyDataSetChanged();
+        Debug.d(TAG, "setData");
+        if (ListUtil.notEmpty(dataList)) {
+            this.dataList.addAll(dataList);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

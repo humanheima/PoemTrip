@@ -66,15 +66,11 @@
 
             </RelativeLayout>
 
-            <com.brotherd.poemtrip.widget.NoScrollGridView
-                android:id="@+id/grid_view_poem"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_poem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:horizontalSpacing="8dp"
-                android:numColumns="3"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="8dp"
                 app:hotPoem="@{viewModel.poemList}" />
 
             <RelativeLayout
@@ -149,15 +145,11 @@
 
             </RelativeLayout>
 
-            <com.brotherd.poemtrip.widget.NoScrollGridView
-                android:id="@+id/grid_view_poet"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_poet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:horizontalSpacing="8dp"
-                android:numColumns="3"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="8dp"
                 app:hotPoet="@{viewModel.poetList}" />
 
             <RelativeLayout
@@ -191,6 +183,7 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
 </layout>
 
 

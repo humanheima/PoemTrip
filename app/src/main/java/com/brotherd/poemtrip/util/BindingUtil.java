@@ -79,16 +79,16 @@ public class BindingUtil {
     }
 
     @BindingAdapter({"hotPoem"})
-    public static void setHotPoem(GridView gridView, List<PoemBean> poemList) {
-        if (null != gridView.getAdapter()) {
-            ((GridViewAdapter) gridView.getAdapter()).setData(poemList);
+    public static void setHotPoem(RecyclerView rv, List<PoemBean> poemList) {
+        if (null != rv.getAdapter()) {
+            ((BaseAdapter<PoemBean>) rv.getAdapter()).setData(poemList);
         }
     }
 
     @BindingAdapter({"hotPoet"})
-    public static void setHotPoet(GridView gridView, List<PoetBean> poetList) {
-        if (null != gridView.getAdapter()) {
-            ((BaseGridViewAdapter) gridView.getAdapter()).setData(poetList);
+    public static void setHotPoet(RecyclerView rv, List<PoetBean> poetList) {
+        if (null != rv.getAdapter()) {
+            ((BaseAdapter<PoetBean>) rv.getAdapter()).setData(poetList);
         }
     }
 

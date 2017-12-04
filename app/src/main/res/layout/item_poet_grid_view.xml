@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.brotherd.poemtrip.widget.SquareImageView
-        android:id="@+id/img_cover"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"/>
+    <data>
 
-    <TextView
-        android:id="@+id/text_poet"
+        <variable
+            name="data"
+            type="com.brotherd.poemtrip.bean.PoetBean" />
+
+        <variable
+            name="clickHandler"
+            type="com.brotherd.poemtrip.viewmodel.HotPoemViewModel.ClickHandler" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textColor="@color/text_gray"
-        android:textSize="14sp"
-        tools:text="李白"/>
+        android:onClick="@{()->clickHandler.launchPoetAlbumActivity(data.poetId)}"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <com.brotherd.poemtrip.widget.SquareImageView
+            android:id="@+id/img_cover"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{data.imageUrl}" />
+
+        <TextView
+            android:id="@+id/text_poet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{data.poetName}"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"
+            tools:text="李白" />
+
+    </LinearLayout>
+</layout>

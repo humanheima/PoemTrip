@@ -1,13 +1,12 @@
 package com.brotherd.poemtrip.fragment;
 
 
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.widget.GridLayoutManager;
 import android.widget.LinearLayout;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.brotherd.poemtrip.R;
-import com.brotherd.poemtrip.adapter.BaseGridViewAdapter;
-import com.brotherd.poemtrip.adapter.GridViewAdapter;
+import com.brotherd.poemtrip.base.BaseAdapter;
 import com.brotherd.poemtrip.base.BaseDataBindingActivity;
 import com.brotherd.poemtrip.base.BaseFragment;
 import com.brotherd.poemtrip.bean.PoemBean;
@@ -16,14 +15,9 @@ import com.brotherd.poemtrip.databinding.FragmentHotPoemBinding;
 import com.brotherd.poemtrip.util.ScreenUtil;
 import com.brotherd.poemtrip.viewmodel.HotPoemViewModel;
 
-import java.util.ArrayList;
-
 public class HotPoemFragment extends BaseFragment<FragmentHotPoemBinding> {
 
     private final String TAG = getClass().getSimpleName();
-
-    private GridViewAdapter adapter;
-    private BaseGridViewAdapter<PoetBean> poetAdapter;
 
     private HotPoemViewModel viewModel;
 
@@ -54,34 +48,37 @@ public class HotPoemFragment extends BaseFragment<FragmentHotPoemBinding> {
     }
 
     private void initGridPoem() {
-        if (adapter == null) {
-            adapter = new GridViewAdapter(getContext(), R.layout.item_grid_view, new ArrayList<PoemBean>(0));
-            binding.gridViewPoem.setAdapter(adapter);
-            binding.gridViewPoem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    viewModel.launchPoemActivity(position);
-                }
-            });
-        }
+        binding.rvPoem.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //binding.rvPoem.addItemDecoration(new CcDividerGridItemDecoration(getContext(), 0));
+        binding.rvPoem.setNestedScrollingEnabled(false);
+        binding.rvPoem.setAdapter(new BaseAdapter<PoemBean>() {
+            @Override
+            protected int getLayoutId() {
+                return R.layout.item_grid_view;
+            }
+
+            @Override
+            protected void createHolder(BaseHolder holder) {
+                holder.getBinding().setVariable(BR.clickHandler, new HotPoemViewModel.ClickHandler(getContext()));
+            }
+        });
     }
 
     private void initGridPoet() {
-        if (poetAdapter == null) {
-            poetAdapter = new BaseGridViewAdapter<PoetBean>(getContext(), R.layout.item_poet_grid_view, new ArrayList<PoetBean>(0)) {
-                @Override
-                public void bindView(CommonViewHolder holder, PoetBean data) {
-                    holder.setImageViewUrl(R.id.img_cover, data.getImageUrl());
-                    holder.setTextViewText(R.id.text_poet, data.getPoetName());
-                }
-            };
-            binding.gridViewPoet.setAdapter(poetAdapter);
-            binding.gridViewPoet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    viewModel.launchPoetAlbumActivity(position);
-                }
-            });
-        }
+        binding.rvPoet.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //binding.rvPoet.addItemDecoration(new CcDividerGridItemDecoration(getContext(), 0));
+        binding.rvPoet.setNestedScrollingEnabled(false);
+        binding.rvPoet.setAdapter(new BaseAdapter<PoetBean>() {
+            @Override
+            protected int getLayoutId() {
+                return R.layout.item_poet_grid_view;
+            }
+
+            @Override
+            protected void createHolder(BaseHolder holder) {
+                holder.getBinding().setVariable(BR.clickHandler, new HotPoemViewModel.ClickHandler(getContext()));
+            }
+        });
     }
+
 }

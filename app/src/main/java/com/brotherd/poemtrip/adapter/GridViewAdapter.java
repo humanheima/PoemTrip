@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.brotherd.poemtrip.R;
 import com.brotherd.poemtrip.bean.PoemBean;
+import com.brotherd.poemtrip.util.Debug;
 import com.brotherd.poemtrip.util.ImageUtil;
+import com.brotherd.poemtrip.util.ListUtil;
 import com.brotherd.poemtrip.widget.SquareImageView;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
  * Created by dumingwei on 2017/4/20.
  */
 public class GridViewAdapter extends ArrayAdapter<PoemBean> {
+
+    private static final String TAG = "GridViewAdapter";
 
     private List<PoemBean> data;
     private Context context;
@@ -31,8 +35,11 @@ public class GridViewAdapter extends ArrayAdapter<PoemBean> {
     }
 
     public void setData(List<PoemBean> data) {
-        this.data = data;
-        notifyDataSetChanged();
+        Debug.d(TAG, "setData");
+        if (ListUtil.notEmpty(data)) {
+            this.data.addAll(data);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
